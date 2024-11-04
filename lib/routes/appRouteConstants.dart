@@ -3,4 +3,5 @@ class AppRouteConstants {
   static const String homePage = '/home';
   static const String profilePage = '/profile';
   static const String materiPage = '/materi';
+  static const String quizPage = '/quiz';
 }

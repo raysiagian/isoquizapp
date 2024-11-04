@@ -1,27 +1,27 @@
 class IsoAnexCategoryModel {
-  final int id_category;
+  final int id_AnexCategory;
   final String title;
   final String explanation;
 
   IsoAnexCategoryModel({
-    required this.id_category,
+    required this.id_AnexCategory,
     required this.title,
     required this.explanation,
   });
 
   static final listIsoAnexCategory= [
     IsoAnexCategoryModel(
-      id_category: 1, 
+      id_AnexCategory: 1, 
       title: 'Computer Standarization', 
       explanation: 'ISO standarization on computer'
     ),
     IsoAnexCategoryModel(
-      id_category: 2, 
+      id_AnexCategory: 2, 
       title: 'Computer Standarization', 
       explanation: 'ISO standarization on computer'
     ),
     IsoAnexCategoryModel(
-      id_category: 3, 
+      id_AnexCategory: 3, 
       title: 'Computer Standarization', 
       explanation: 'ISO standarization on computer'
     ),

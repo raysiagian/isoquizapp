@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class LocalColorsStyle{
 
-  static const int _primaryValue = 0xFF6060B8;
+  static const int _primaryValue = 0xFF6A5AE0;
 
   static const MaterialColor primaryColor = MaterialColor(
     _primaryValue, 

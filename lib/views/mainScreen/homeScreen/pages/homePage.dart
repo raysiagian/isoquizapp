@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_iso_app/styles/localTextStyle.dart';
 import 'package:quiz_iso_app/views/mainScreen/homeScreen/widget/anexCardWidget.dart';
+import 'package:quiz_iso_app/views/mainScreen/homeScreen/widget/quizCardWidget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -32,6 +33,8 @@ class _HomePageState extends State<HomePage> {
             // Content Here
             children: [
               AnexCardWidget(),
+              const SizedBox(height: 20),
+              QuizCardWidget(),
             ],
           ),
         ),
