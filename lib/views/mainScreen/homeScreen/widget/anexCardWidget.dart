@@ -20,6 +20,14 @@ class AnexCardWidget extends StatelessWidget {
         decoration: BoxDecoration(
           color: LocalColorsStyle.primaryColor,
           borderRadius: BorderRadius.circular(8.0),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.25),
+              spreadRadius: 2,
+              blurRadius: 5,
+              offset: Offset(0, 3),
+            ),
+          ],
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
