@@ -10,7 +10,7 @@ class AnexCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-         Navigator.pushNamed(context, AppRouteConstants.materiPage);
+         Navigator.pushNamed(context, AppRouteConstants.materiCategoryPage);
       },
       borderRadius: BorderRadius.circular(8.0),
       child: Container(

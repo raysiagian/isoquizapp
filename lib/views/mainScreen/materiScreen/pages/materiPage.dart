@@ -3,14 +3,14 @@ import 'package:quiz_iso_app/models/isoAnexCategoryModel.dart';
 import 'package:quiz_iso_app/styles/localTextStyle.dart';
 import 'package:quiz_iso_app/views/mainScreen/materiScreen/widget/isoAnexCategoryCardWidget.dart';
 
-class MateriPage extends StatefulWidget {
-  const MateriPage({super.key});
+class MateriCategoryPage extends StatefulWidget {
+  const MateriCategoryPage({super.key});
 
   @override
-  State<MateriPage> createState() => _MateriPageState();
+  State<MateriCategoryPage> createState() => _MateriPageState();
 }
 
-class _MateriPageState extends State<MateriPage> {
+class _MateriPageState extends State<MateriCategoryPage> {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;

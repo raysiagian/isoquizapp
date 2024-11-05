@@ -10,7 +10,7 @@ class QuizCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-         Navigator.pushNamed(context, AppRouteConstants.quizPage);
+         Navigator.pushNamed(context, AppRouteConstants.quizCategoryPage);
       },
       borderRadius: BorderRadius.circular(8.0),
       child: Container(
