@@ -22,6 +22,8 @@ class _QuizQuestionPageState extends State<QuizQuestionPage> {
     questions = IsoQuizQuestionModel.listIsoQuizQuestion
         .where((question) => question.id_quizCategory == widget.id_quizCategory)
         .toList();
+        
+    questions.shuffle();
   }
 
   void _goToNextQuestion() {

@@ -34,8 +34,8 @@ class _HomePageState extends State<HomePage> {
             // Content Here
             children: [
               ScoreChartWidget(),
-              const SizedBox(height: 20),
-              AnexCardWidget(),
+              // const SizedBox(height: 20),
+              // AnexCardWidget(),
               const SizedBox(height: 20),
               QuizCardWidget(),
             ],

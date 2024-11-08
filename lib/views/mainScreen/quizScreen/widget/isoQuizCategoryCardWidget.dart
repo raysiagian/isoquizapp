@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_iso_app/models/isoQuizCategoryModel.dart';
 import 'package:quiz_iso_app/styles/localTextStyle.dart';
-import 'package:quiz_iso_app/views/mainScreen/quizScreen/pages/quizQuestionPage.dart';
+import 'package:quiz_iso_app/views/mainScreen/quizScreen/pages/quizMaterialPage.dart';
 
 class IsoQuizCategoryCardWidget extends StatelessWidget {
   const IsoQuizCategoryCardWidget({
@@ -18,8 +18,8 @@ class IsoQuizCategoryCardWidget extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => QuizQuestionPage(
-              id_quizCategory: isoquizcategorymodel.id_quizCategory,
+            builder: (context) => QuizMaterialPage(
+              id_quizCategory: isoquizcategorymodel.id_quizCategory, isoquizcategorymodel: isoquizcategorymodel,
             ),
           ),
         );

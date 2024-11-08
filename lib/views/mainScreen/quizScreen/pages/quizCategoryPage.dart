@@ -17,7 +17,7 @@ class _QuizPageState extends State<QuizCategoryPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Quiz',
+          'Annex',
           style: LocalTextStyle.textTheme.headlineSmall!.copyWith(
             color: Colors.black,
           ),

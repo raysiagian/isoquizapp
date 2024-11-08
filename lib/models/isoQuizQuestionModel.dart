@@ -77,6 +77,28 @@ class IsoQuizQuestionModel {
       option_E: 'Iso adalah E',
       correct_Answer: 'Iso adalah A' 
     ),
+    IsoQuizQuestionModel(
+      id_quizQuestion: 6, 
+      id_quizCategory: 2, 
+      question: 'Apa Itu Iso',
+      option_A: 'Iso adalah A', 
+      option_B: 'Iso adalah B', 
+      option_C: 'Iso adalah C', 
+      option_D: 'Iso adalah D', 
+      option_E: 'Iso adalah E',
+      correct_Answer: 'Iso adalah A' 
+    ),
+    IsoQuizQuestionModel(
+      id_quizQuestion: 7, 
+      id_quizCategory: 2, 
+      question: 'Apa Itu Iso',
+      option_A: 'Iso adalah A', 
+      option_B: 'Iso adalah B', 
+      option_C: 'Iso adalah C', 
+      option_D: 'Iso adalah D', 
+      option_E: 'Iso adalah E',
+      correct_Answer: 'Iso adalah A' 
+    ),
   ];
 
 }

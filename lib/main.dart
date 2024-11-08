@@ -17,7 +17,7 @@ class MainApp extends StatelessWidget {
         useMaterial3: true,
       ),
       title: 'Iso App',
-      initialRoute: AppRouteConstants.wrapper, // Set rute awal
+      initialRoute: AppRouteConstants.homePage, // Set rute awal
       onGenerateRoute: AppRouter.onGenerateRoute, // Gunakan AppRouter
     );
   }
