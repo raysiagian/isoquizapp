@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:quiz_iso_app/models/isoQuizCategoryModel.dart';
+import 'package:quiz_iso_app/models/isoQuizSubCategoryModel.dart';
 import 'package:quiz_iso_app/styles/localTextStyle.dart';
 import 'package:quiz_iso_app/views/mainScreen/quizScreen/pages/quizMaterialPage.dart';
 
-class IsoQuizCategoryCardWidget extends StatelessWidget {
-  const IsoQuizCategoryCardWidget({
+class IsoQuizSubCategoryCardWidget extends StatelessWidget {
+  const IsoQuizSubCategoryCardWidget({
     Key? key,
-    required this.isoquizcategorymodel,
+    required this.isoquizsubcategorymodel,
   }) : super(key: key);
 
-  final IsoQuizCategoryModel isoquizcategorymodel;
+  final IsoQuizSubCategoryModel isoquizsubcategorymodel;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class IsoQuizCategoryCardWidget extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (context) => QuizMaterialPage(
-              id_quizCategory: isoquizcategorymodel.id_quizCategory, isoquizcategorymodel: isoquizcategorymodel,
+              id_quizsubCategory: isoquizsubcategorymodel.id_quizsubCategory, isoquizsubcategorymodel: isoquizsubcategorymodel,
             ),
           ),
         );
@@ -38,18 +38,18 @@ class IsoQuizCategoryCardWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                isoquizcategorymodel.title,
+                isoquizsubcategorymodel.title,
                 style: LocalTextStyle.textTheme.bodyMedium!.copyWith(
                   color: Colors.black,
                 ),
               ),
               const SizedBox(height: 7),
-              Text(
-                isoquizcategorymodel.explanation,
-                style: LocalTextStyle.textTheme.bodyMedium!.copyWith(
-                  color: Colors.brown,
-                ),
-              ),
+              // Text(
+              //   isoquizsubcategorymodel.explanation,
+              //   style: LocalTextStyle.textTheme.bodyMedium!.copyWith(
+              //     color: Colors.brown,
+              //   ),
+              // ),
             ],
           ),
         ),

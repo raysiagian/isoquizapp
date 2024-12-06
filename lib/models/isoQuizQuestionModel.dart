@@ -1,6 +1,6 @@
 class IsoQuizQuestionModel {
   final int id_quizQuestion;
-  final int id_quizCategory;
+  final int id_quizsubCategory;
   final String question;
   final String option_A;
   final String option_B;
@@ -11,7 +11,7 @@ class IsoQuizQuestionModel {
 
   IsoQuizQuestionModel({
     required this.id_quizQuestion,
-    required this.id_quizCategory,
+    required this.id_quizsubCategory,
     required this.question,
     required this.option_A,
     required this.option_B,
@@ -19,12 +19,20 @@ class IsoQuizQuestionModel {
     required this.option_D,
     required this.option_E,
     required this.correct_Answer,
-  });
+  }) : options = {
+    'option_A': option_A,
+    'option_B': option_B,
+    'option_C': option_C,
+    'option_D': option_D,
+    'option_E': option_E,
+  };
+  
+  final Map<String, String> options;
 
   static final listIsoQuizQuestion = [
     IsoQuizQuestionModel(
       id_quizQuestion: 1, 
-      id_quizCategory: 1, 
+      id_quizsubCategory: 1, 
       question: 'Apa Itu Iso',
       option_A: 'Iso adalah A', 
       option_B: 'Iso adalah B', 
@@ -35,7 +43,7 @@ class IsoQuizQuestionModel {
     ),
     IsoQuizQuestionModel(
       id_quizQuestion: 3, 
-      id_quizCategory: 1, 
+      id_quizsubCategory: 1, 
       question: 'Apa Itu Iso',
       option_A: 'Iso adalah A', 
       option_B: 'Iso adalah B', 
@@ -46,7 +54,7 @@ class IsoQuizQuestionModel {
     ),
     IsoQuizQuestionModel(
       id_quizQuestion: 3, 
-      id_quizCategory: 1, 
+      id_quizsubCategory: 1, 
       question: 'Apa Itu Iso',
       option_A: 'Iso adalah A', 
       option_B: 'Iso adalah B', 
@@ -57,7 +65,7 @@ class IsoQuizQuestionModel {
     ),
     IsoQuizQuestionModel(
       id_quizQuestion: 4, 
-      id_quizCategory: 1, 
+      id_quizsubCategory: 1, 
       question: 'Apa Itu Iso',
       option_A: 'Iso adalah A', 
       option_B: 'Iso adalah B', 
@@ -68,7 +76,7 @@ class IsoQuizQuestionModel {
     ),
     IsoQuizQuestionModel(
       id_quizQuestion: 5, 
-      id_quizCategory: 1, 
+      id_quizsubCategory: 1, 
       question: 'Apa Itu Iso',
       option_A: 'Iso adalah A', 
       option_B: 'Iso adalah B', 
@@ -79,7 +87,7 @@ class IsoQuizQuestionModel {
     ),
     IsoQuizQuestionModel(
       id_quizQuestion: 6, 
-      id_quizCategory: 2, 
+      id_quizsubCategory: 2, 
       question: 'Apa Itu Iso',
       option_A: 'Iso adalah A', 
       option_B: 'Iso adalah B', 
@@ -90,7 +98,7 @@ class IsoQuizQuestionModel {
     ),
     IsoQuizQuestionModel(
       id_quizQuestion: 7, 
-      id_quizCategory: 2, 
+      id_quizsubCategory: 2, 
       question: 'Apa Itu Iso',
       option_A: 'Iso adalah A', 
       option_B: 'Iso adalah B', 

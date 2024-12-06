@@ -3,9 +3,9 @@ import 'package:quiz_iso_app/models/isoQuizQuestionModel.dart';
 import 'package:quiz_iso_app/views/mainScreen/quizScreen/widget/isoQuizQuestionWidget.dart';
 
 class QuizQuestionPage extends StatefulWidget {
-  final int id_quizCategory;
+  final int id_quizsubCategory;
 
-  const QuizQuestionPage({Key? key, required this.id_quizCategory}) : super(key: key);
+  const QuizQuestionPage({Key? key, required this.id_quizsubCategory}) : super(key: key);
 
   @override
   State<QuizQuestionPage> createState() => _QuizQuestionPageState();
@@ -20,11 +20,13 @@ class _QuizQuestionPageState extends State<QuizQuestionPage> {
     super.initState();
     // Pastikan 'questions' diinisialisasi di sini
     questions = IsoQuizQuestionModel.listIsoQuizQuestion
-        .where((question) => question.id_quizCategory == widget.id_quizCategory)
+        .where((question) => question.id_quizsubCategory == widget.id_quizsubCategory)
         .toList();
         
     questions.shuffle();
   }
+
+// Indexing Halaman 
 
   void _goToNextQuestion() {
     if (currentQuestionIndex < questions.length - 1) {
@@ -48,7 +50,7 @@ class _QuizQuestionPageState extends State<QuizQuestionPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Quiz ${widget.id_quizCategory} - Question ${currentQuestionIndex + 1}'),
+        title: Text('Quiz ${widget.id_quizsubCategory} - Question ${currentQuestionIndex + 1}'),
       ),
       body: questions.isNotEmpty
           ? Padding(
@@ -80,7 +82,7 @@ class _QuizQuestionPageState extends State<QuizQuestionPage> {
               ),
             )
           : Center(
-              child: Text('No questions available for this category.'),
+              child: Text('Pertanyaan tidak tersedia, coba lagi nanti'),
             ),
     );
   }

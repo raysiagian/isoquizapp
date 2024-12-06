@@ -9,6 +9,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_custom_clippers: ^2.1.0
   google_fonts: ^6.2.1
   syncfusion_flutter_charts: ^27.1.57
 
@@ -19,3 +20,5 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+  - assets/images/

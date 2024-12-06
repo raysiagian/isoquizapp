@@ -1,29 +1,34 @@
 class IsoQuizCategoryModel {
   final int id_quizCategory;
   final String title;
-  final String explanation;
+  final String image;
+  // final String explanation;
 
   IsoQuizCategoryModel({
     required this.id_quizCategory,
     required this.title,
-    required this.explanation,
+    required this.image,
+    // required this.explanation,
   });
 
    static final listIsoQuizCategory = [
     IsoQuizCategoryModel(
       id_quizCategory: 1, 
-      title: 'Computer Standarization', 
-      explanation: 'ISO standarization on computer'
+      title: 'Bahasa',
+      image:'1',
+      // explanation: 'ISO standarization on computer'
     ),
     IsoQuizCategoryModel(
       id_quizCategory: 2, 
-      title: 'Computer Standarization', 
-      explanation: 'ISO standarization on computer'
+      title: 'Matematika',
+      image:'2',
+      // explanation: 'ISO standarization on computer'
     ),
     IsoQuizCategoryModel(
       id_quizCategory: 3, 
-      title: 'Computer Standarization', 
-      explanation: 'ISO standarization on computer'
+      title: 'Ips',
+      image:'3',
+      // explanation: 'ISO standarization on computer'
     ),
   ];
 }

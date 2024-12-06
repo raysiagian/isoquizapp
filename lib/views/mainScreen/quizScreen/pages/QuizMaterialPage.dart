@@ -1,19 +1,19 @@
 // QuizMaterialPage.dart
 import 'package:flutter/material.dart';
-import 'package:quiz_iso_app/models/isoQuizCategoryModel.dart';
 import 'package:quiz_iso_app/models/isoQuizMaterialModel.dart';
+import 'package:quiz_iso_app/models/isoQuizSubCategoryModel.dart';
 import 'package:quiz_iso_app/styles/localColors.dart';
 import 'package:quiz_iso_app/views/mainScreen/quizScreen/pages/quizQuestionPage.dart';
 import 'package:quiz_iso_app/views/mainScreen/quizScreen/widget/isoQuizMaterialWidget.dart';
 
 class QuizMaterialPage extends StatefulWidget {
-  final IsoQuizCategoryModel isoquizcategorymodel;
-  final int id_quizCategory;
+  final IsoQuizSubCategoryModel isoquizsubcategorymodel;
+  final int id_quizsubCategory;
 
   const QuizMaterialPage({
     Key? key,
-    required this.id_quizCategory,
-    required this.isoquizcategorymodel,
+    required this.id_quizsubCategory,
+    required this.isoquizsubcategorymodel,
   }) : super(key: key);
 
   @override
@@ -27,9 +27,9 @@ class _QuizMaterialPageState extends State<QuizMaterialPage> {
   @override
   void initState() {
     super.initState();
-    // Filter listIsoQuizMaterial berdasarkan id_quizCategory
+    // Filter listIsoQuizMaterial berdasarkan id_quizsubCategory
     questions = IsoQuizMaterialModel.listIsoQuizMaterial
-        .where((material) => material.id_quizCategory == widget.id_quizCategory)
+        .where((material) => material.id_quizsubCategory == widget.id_quizsubCategory)
         .toList();
   }
 
@@ -39,7 +39,7 @@ class _QuizMaterialPageState extends State<QuizMaterialPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Anex ${currentMaterialIndex + 1}'),
+        title: Text(widget.isoquizsubcategorymodel.title),
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.08),
@@ -63,7 +63,7 @@ class _QuizMaterialPageState extends State<QuizMaterialPage> {
                       context,
                       MaterialPageRoute(
                         builder: (context) => QuizQuestionPage(
-                          id_quizCategory: widget.isoquizcategorymodel.id_quizCategory,
+                          id_quizsubCategory: widget.isoquizsubcategorymodel.id_quizsubCategory,
                         ),
                       ),
                     );
