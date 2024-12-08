@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_iso_app/models/isoQuizSubCategoryModel.dart';
-import 'package:quiz_iso_app/styles/localTextStyle.dart';
 import 'package:quiz_iso_app/views/mainScreen/quizScreen/widget/isoQuizSubCategoryCardWidget.dart';
 
-class QuizSubCategoryPage extends StatelessWidget {
+class QuizSubCategoryTestPage extends StatelessWidget {
   final int id_quizCategory;
 
-  const QuizSubCategoryPage({
+  const QuizSubCategoryTestPage({
     Key? key,
     required this.id_quizCategory,
   }) : super(key: key);
@@ -21,23 +20,31 @@ class QuizSubCategoryPage extends StatelessWidget {
         .toList();
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Subcategories',
-          style: LocalTextStyle.textTheme.headlineSmall!.copyWith(
-            color: Colors.black,
-          ),
-        ),
-        backgroundColor: Colors.white,
-        elevation: 0,
-      ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.08),
         child: filteredSubCategories.isEmpty
             ? Center(
-                child: Text(
-                  'No Subcategories Found',
-                  style: TextStyle(fontSize: 18, color: Colors.grey),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      'assets/images/page not found.png',
+                      height: 100,
+                      width: 150,
+                    ),
+                    const SizedBox(height: 40,),
+                    const Text(
+                      'No Content Found',
+                      style: TextStyle(fontSize: 24, color: Colors.black),
+                      textAlign: TextAlign.center,
+                    ),
+                    const Text(
+                      'Sepertinya belum ada content saat ini, cobalagi nanti',
+                      style: TextStyle(fontSize: 18, color: Colors.black),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
                 ),
               )
             : ListView.builder(

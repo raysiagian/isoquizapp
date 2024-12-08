@@ -19,12 +19,6 @@ class _RegisterPageState extends State<RegisterPage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            "ISO:27001",
-            style: LocalTextStyle.textTheme.headlineSmall!.copyWith(
-              color: LocalColorsStyle.primaryColor,
-            ),
-          ),
-          Text(
             "Selamat Datang",
             style: LocalTextStyle.textTheme.headlineSmall!.copyWith(
               color: Colors.black,

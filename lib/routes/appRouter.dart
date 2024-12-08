@@ -6,7 +6,7 @@ import 'package:quiz_iso_app/views/mainScreen/authScreen/registerScreen/pages/re
 import 'package:quiz_iso_app/views/mainScreen/homeScreen/pages/homePage.dart';
 import 'package:quiz_iso_app/views/mainScreen/profileScreen/pages/profilePage.dart';
 import 'package:quiz_iso_app/views/mainScreen/quizScreen/pages/quizMaterialPage.dart';
-import 'package:quiz_iso_app/views/mainScreen/quizScreen/pages/quizSubCategoryPage.dart';
+import 'package:quiz_iso_app/views/mainScreen/quizScreen/pages/quizSubCategoryTestPage.dart';
 import 'package:quiz_iso_app/views/mainScreen/wrapper/pages/wrapper.dart';
 
 
