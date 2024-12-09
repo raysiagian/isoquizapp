@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:quiz_iso_app/models/isoQuizCategoryModel.dart';
 import 'package:quiz_iso_app/styles/localTextStyle.dart';
 import 'package:quiz_iso_app/views/mainScreen/homeScreen/widget/quizCardWidget.dart';
+import 'package:quiz_iso_app/views/mainScreen/homeScreen/widget/totalScoreandRanks.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -34,12 +35,8 @@ class _HomePageState extends State<HomePage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Data lainnya di atas ListView.builder
+              TotalScoreandRanksWidget(),
               const SizedBox(height: 20),
-
-              // Tambahkan widget statis atau dinamis lainnya di sini
-
-              const SizedBox(height: 20),
-
               // ListView.builder dengan shrinkWrap
               ListView.builder(
                 shrinkWrap: true, // Membatasi tinggi sesuai konten

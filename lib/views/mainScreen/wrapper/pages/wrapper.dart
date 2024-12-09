@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_iso_app/views/mainScreen/historyPage/pages/historyPage.dart';
 import 'package:quiz_iso_app/views/mainScreen/homeScreen/pages/homePage.dart';
 import 'package:quiz_iso_app/views/mainScreen/profileScreen/pages/profilePage.dart';
+import 'package:quiz_iso_app/views/mainScreen/rankScreen/pages/rankPage.dart';
 import 'package:quiz_iso_app/views/mainScreen/wrapper/widget/bottomAppBarWidget.dart';
 
 class Wrapper extends StatefulWidget {
@@ -26,6 +28,8 @@ class _WrapperState extends State<Wrapper> {
         },
         children: [
           HomePage(),
+          RankPage(),
+          HistoryPage(),
           ProfilePage(),
         ],
       ),

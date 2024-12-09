@@ -69,7 +69,12 @@ class _LoginTextFormWidgetState extends State<LoginTextFormWidget> {
             height: 50,
             width: double.infinity,
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(
+                  context,
+                  AppRouteConstants.wrapper,
+                );
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: LocalColorsStyle.primaryColor,
                 shape: RoundedRectangleBorder(

@@ -26,6 +26,14 @@ class BottomAppBarWidget extends StatelessWidget {
           icon: Icon(Icons.home),
           label: 'Home',
         ),
+         BottomNavigationBarItem(
+          icon: Icon(Icons.score),
+          label: 'Rank',
+        ),
+         BottomNavigationBarItem(
+          icon: Icon(Icons.history),
+          label: 'History',
+        ),
         BottomNavigationBarItem(
           icon: Icon(Icons.person),
           label: 'Profil',

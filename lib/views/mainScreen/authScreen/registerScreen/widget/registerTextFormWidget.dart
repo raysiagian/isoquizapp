@@ -75,7 +75,12 @@ class _RegisterTextFromWidgetState extends State<RegisterTextFormWidget> {
             height: 50,
             width: double.infinity,
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                 Navigator.pushNamed(
+                  context,
+                  AppRouteConstants.avatarPage,
+                );
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: LocalColorsStyle.primaryColor,
                 shape: RoundedRectangleBorder(

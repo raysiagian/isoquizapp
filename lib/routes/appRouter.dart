@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:quiz_iso_app/routes/appRouteConstants.dart';
 import 'package:quiz_iso_app/views/mainScreen/authScreen/forgetPasswordScreen/pages/forgetPasswordWidget.dart';
 import 'package:quiz_iso_app/views/mainScreen/authScreen/loginScreen/pages/loginPage.dart';
+import 'package:quiz_iso_app/views/mainScreen/authScreen/registerScreen/pages/chooseAvatarPage.dart';
 import 'package:quiz_iso_app/views/mainScreen/authScreen/registerScreen/pages/registerPage.dart';
 import 'package:quiz_iso_app/views/mainScreen/homeScreen/pages/homePage.dart';
 import 'package:quiz_iso_app/views/mainScreen/profileScreen/pages/profilePage.dart';
@@ -17,6 +18,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => LoginPage());
       case AppRouteConstants.registerPage:
         return MaterialPageRoute(builder: (_) => RegisterPage());
+      case AppRouteConstants.avatarPage:
+        return MaterialPageRoute(builder: (_) => ChooseAvatarPage());
       case AppRouteConstants.forgetPasswordPage:
         return MaterialPageRoute(builder: (_) => ForgetPasswordPage());
       case AppRouteConstants.wrapper:
@@ -25,6 +28,7 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => HomePage());
       case AppRouteConstants.profilePage:
         return MaterialPageRoute(builder: (_) => ProfilePage());
+        
       // case AppRouteConstants.materiCategoryPage:
       //   return MaterialPageRoute(builder: (_) => MateriCategoryPage());
       // case AppRouteConstants.quizSubCategoryPage:
