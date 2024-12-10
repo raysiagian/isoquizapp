@@ -8,6 +8,7 @@ import 'package:quiz_iso_app/views/mainScreen/homeScreen/pages/homePage.dart';
 import 'package:quiz_iso_app/views/mainScreen/profileScreen/pages/profilePage.dart';
 import 'package:quiz_iso_app/views/mainScreen/quizScreen/pages/quizMaterialPage.dart';
 import 'package:quiz_iso_app/views/mainScreen/quizScreen/pages/quizSubCategoryTestPage.dart';
+import 'package:quiz_iso_app/views/mainScreen/quizScreen/pages/quizSubCategoryWrapperPage.dart';
 import 'package:quiz_iso_app/views/mainScreen/wrapper/pages/wrapper.dart';
 
 
@@ -28,6 +29,15 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => HomePage());
       case AppRouteConstants.profilePage:
         return MaterialPageRoute(builder: (_) => ProfilePage());
+      case AppRouteConstants.quizPage:
+        final args = settings.arguments as Map<String, dynamic>;
+        return MaterialPageRoute(
+          builder: (_) => QuizSubCategoryWrapperPage(
+            quizCategory: args['quizCategory'],
+            id_quizCategory: args['id_quizCategory'],
+            isoquizcategorymodel: args['isoquizcategorymodel'],
+          ),
+        );
         
       // case AppRouteConstants.materiCategoryPage:
       //   return MaterialPageRoute(builder: (_) => MateriCategoryPage());

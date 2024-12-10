@@ -35,7 +35,7 @@ class QuizSubCategoryTestPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 40,),
                     const Text(
-                      'No Content Found',
+                      'Konten tidak tersedia',
                       style: TextStyle(fontSize: 24, color: Colors.black),
                       textAlign: TextAlign.center,
                     ),

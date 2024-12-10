@@ -26,7 +26,7 @@ class _ScoreChartWidgetState extends State<ScoreChartWidget> {
           LineSeries<IsoQuizScoreModel, String>(
             dataSource: quizScores,
             xValueMapper: (IsoQuizScoreModel data, _) =>
-                'Kategori ${data.id_quizCategory}',
+                'Kategori ${data.id_quizsubCategory}',
             yValueMapper: (IsoQuizScoreModel data, _) => data.score_Quiz,
             name: 'Skor Quiz',
             color: LocalColorsStyle.primaryColor,
