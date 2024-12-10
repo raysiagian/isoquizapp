@@ -21,7 +21,7 @@ class QuizSubCategoryTestPage extends StatelessWidget {
 
     return Scaffold(
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.08),
+        padding: EdgeInsets.only(top: 30, left: screenWidth * 0.08, right: screenWidth * 0.08),
         child: filteredSubCategories.isEmpty
             ? Center(
                 child: Column(

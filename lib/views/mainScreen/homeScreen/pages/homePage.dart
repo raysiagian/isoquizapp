@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_iso_app/models/isoQuizCategoryModel.dart';
+import 'package:quiz_iso_app/styles/localColors.dart';
 import 'package:quiz_iso_app/styles/localTextStyle.dart';
 import 'package:quiz_iso_app/views/mainScreen/homeScreen/widget/quizCardWidget.dart';
 import 'package:quiz_iso_app/views/mainScreen/homeScreen/widget/totalScoreandRanks.dart';
@@ -17,20 +18,44 @@ class _HomePageState extends State<HomePage> {
     final screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: Text(
-          'Welcome',
-          style: LocalTextStyle.textTheme.headlineSmall!.copyWith(
-            color: Colors.black,
-          ),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(90),
+        child: AppBar(
+          automaticallyImplyLeading: false,
+          title: Row(
+              children: [
+                CircleAvatar(
+                  radius: 20, // Ukuran lingkaran
+                  backgroundImage: AssetImage('assets/images/male.png'),
+                ),
+                const SizedBox(width: 10),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'username',
+                      style: LocalTextStyle.textTheme.headlineSmall!.copyWith(
+                        color: Colors.white,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                     Text(
+                      'email',
+                      style: LocalTextStyle.textTheme.titleSmall!.copyWith(
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          backgroundColor: LocalColorsStyle.primaryColor,
+          elevation: 0,
         ),
-        backgroundColor: Colors.white,
-        elevation: 0,
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.08),
+          padding: EdgeInsets.only(top: 30, left: screenWidth * 0.08, right: screenWidth * 0.08),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
