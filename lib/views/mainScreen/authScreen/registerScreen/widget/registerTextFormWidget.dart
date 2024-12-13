@@ -78,7 +78,7 @@ class _RegisterTextFromWidgetState extends State<RegisterTextFormWidget> {
               onPressed: () {
                  Navigator.pushNamed(
                   context,
-                  AppRouteConstants.avatarPage,
+                  AppRouteConstants.genderPage,
                 );
               },
               style: ElevatedButton.styleFrom(

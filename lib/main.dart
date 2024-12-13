@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_iso_app/routes/appRouteConstants.dart';
 import 'package:quiz_iso_app/routes/appRouter.dart';
-import 'package:quiz_iso_app/views/mainScreen/quizScreen/pages/quizResultPage.dart';
+
 
 void main() {
   runApp(const MainApp());
@@ -18,7 +18,7 @@ class MainApp extends StatelessWidget {
         useMaterial3: true,
       ),
       title: 'Iso App',
-      initialRoute: AppRouteConstants.loginPage, // Set rute awal
+      initialRoute: AppRouteConstants.splashsscrreenPage, // Set rute awal
       onGenerateRoute: AppRouter.onGenerateRoute, // Gunakan AppRouter
     );
   }

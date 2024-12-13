@@ -22,33 +22,38 @@ class _HomePageState extends State<HomePage> {
         preferredSize: const Size.fromHeight(90),
         child: AppBar(
           automaticallyImplyLeading: false,
-          title: Row(
-              children: [
-                CircleAvatar(
-                  radius: 20, // Ukuran lingkaran
-                  backgroundImage: AssetImage('assets/images/male.png'),
-                ),
-                const SizedBox(width: 10),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+          title: Column(
+            children: [
+              SizedBox(height: 10),
+              Row(
                   children: [
-                    Text(
-                      'username',
-                      style: LocalTextStyle.textTheme.headlineSmall!.copyWith(
-                        color: Colors.white,
-                      ),
+                    CircleAvatar(
+                      radius: 20, // Ukuran lingkaran
+                      backgroundImage: AssetImage('assets/images/male.png'),
                     ),
-                    const SizedBox(height: 4),
-                     Text(
-                      'email',
-                      style: LocalTextStyle.textTheme.titleSmall!.copyWith(
-                        color: Colors.white,
-                      ),
+                    const SizedBox(width: 10),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'username',
+                          style: LocalTextStyle.textTheme.headlineSmall!.copyWith(
+                            color: Colors.white,
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                         Text(
+                          'email',
+                          style: LocalTextStyle.textTheme.titleSmall!.copyWith(
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
-              ],
-            ),
+            ],
+          ),
           backgroundColor: LocalColorsStyle.primaryColor,
           elevation: 0,
         ),

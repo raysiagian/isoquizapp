@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class ChooseAvatarWidget extends StatefulWidget {
+class ChooseGenderWidget extends StatefulWidget {
   final String maleAvatar;
   final String femaleAvatar;
   final String? selectedOption;
   final Function(String) onOptionSelected;
 
-  const ChooseAvatarWidget({
+  const ChooseGenderWidget({
     Key? key,
     required this.maleAvatar,
     required this.femaleAvatar,
@@ -15,10 +15,10 @@ class ChooseAvatarWidget extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<ChooseAvatarWidget> createState() => _ChooseAvatarWidgetState();
+  State<ChooseGenderWidget> createState() => _ChooseAvatarWidgetState();
 }
 
-class _ChooseAvatarWidgetState extends State<ChooseAvatarWidget> {
+class _ChooseAvatarWidgetState extends State<ChooseGenderWidget> {
   @override
   Widget build(BuildContext context) {
     return Row(

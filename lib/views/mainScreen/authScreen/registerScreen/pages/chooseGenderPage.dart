@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:quiz_iso_app/routes/appRouteConstants.dart';
 import 'package:quiz_iso_app/styles/localColors.dart';
 import 'package:quiz_iso_app/styles/localTextStyle.dart';
-import 'package:quiz_iso_app/views/mainScreen/authScreen/registerScreen/widget/chooseAvatarWidget.dart';
+import 'package:quiz_iso_app/views/mainScreen/authScreen/registerScreen/widget/chooseGenderWidget.dart';
 
-class ChooseAvatarPage extends StatefulWidget {
-  const ChooseAvatarPage({super.key});
+class ChooseGenderPage extends StatefulWidget {
+  const ChooseGenderPage({super.key});
 
   @override
-  State<ChooseAvatarPage> createState() => _ChooseAvatarPageState();
+  State<ChooseGenderPage> createState() => _ChooseAvatarPageState();
 }
 
-class _ChooseAvatarPageState extends State<ChooseAvatarPage> {
+class _ChooseAvatarPageState extends State<ChooseGenderPage> {
   String? selectedOption;
   @override
   Widget build(BuildContext context) {
@@ -25,14 +25,14 @@ class _ChooseAvatarPageState extends State<ChooseAvatarPage> {
               children: [
                 Spacer(),
                 Text(
-                  'Pilih Avatar Kamu',
+                  'Pilih Jenis Kelamin',
                   style: LocalTextStyle.textTheme.titleMedium!.copyWith(
                         color: Colors.black,
                         fontWeight: FontWeight.w600,
                       ),
                 ),
                 SizedBox(height: 80),
-                ChooseAvatarWidget(
+                ChooseGenderWidget(
                   maleAvatar: 'assets/images/male.png',
                   femaleAvatar: 'assets/images/female.png',
                   selectedOption: selectedOption,
