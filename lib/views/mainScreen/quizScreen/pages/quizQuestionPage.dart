@@ -1,15 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_iso_app/models/isoQuizCategoryModel.dart';
 import 'package:quiz_iso_app/models/isoQuizQuestionModel.dart';
+import 'package:quiz_iso_app/views/mainScreen/quizScreen/pages/quizResultPage.dart';
 import 'package:quiz_iso_app/views/mainScreen/quizScreen/widget/isoQuizQuestionWidget.dart';
 
 class QuizQuestionPage extends StatefulWidget {
   final int id_quizsubCategory;
+  final IsoQuizCategoryModel isoquizcategorymodel; // Add this parameter
 
-  const QuizQuestionPage({Key? key, required this.id_quizsubCategory}) : super(key: key);
+  const QuizQuestionPage({
+    Key? key,
+    required this.id_quizsubCategory,
+    required this.isoquizcategorymodel, // Include it in the constructor
+  }) : super(key: key);
 
   @override
   State<QuizQuestionPage> createState() => _QuizQuestionPageState();
 }
+
 
 class _QuizQuestionPageState extends State<QuizQuestionPage> {
   late List<IsoQuizQuestionModel> questions = [];
@@ -75,6 +83,20 @@ class _QuizQuestionPageState extends State<QuizQuestionPage> {
                         ElevatedButton(
                           onPressed: _goToNextQuestion,
                           child: Text('Selanjutnya'),
+                        ),
+                        if (currentQuestionIndex == questions.length -1) 
+                        ElevatedButton(
+                          onPressed: (){
+                            Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ResultPage(
+                               isoquizcategorymodel: widget.isoquizcategorymodel,
+                              ),
+                            ),
+                          );
+                          } , //arakhkan kehalaman
+                          child: Text('Selesaikan'),
                         ),
                     ],
                   ),

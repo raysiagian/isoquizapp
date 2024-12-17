@@ -64,6 +64,7 @@ class _QuizMaterialPageState extends State<QuizMaterialPage> {
                       MaterialPageRoute(
                         builder: (context) => QuizQuestionPage(
                           id_quizsubCategory: widget.isoquizsubcategorymodel.id_quizsubCategory,
+                          isoquizcategorymodel: widget.isoquizsubcategorymodel,
                         ),
                       ),
                     );
