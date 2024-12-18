@@ -21,14 +21,14 @@ class QuizMaterialPage extends StatefulWidget {
 }
 
 class _QuizMaterialPageState extends State<QuizMaterialPage> {
-  late List<IsoQuizMaterialModel> questions;
+  late List<IsoQuizMaterialModel> materials;
   int currentMaterialIndex = 0;
 
   @override
   void initState() {
     super.initState();
     // Filter listIsoQuizMaterial berdasarkan id_quizsubCategory
-    questions = IsoQuizMaterialModel.listIsoQuizMaterial
+    materials = IsoQuizMaterialModel.listIsoQuizMaterial
         .where((material) => material.id_quizsubCategory == widget.id_quizsubCategory)
         .toList();
   }
@@ -47,8 +47,8 @@ class _QuizMaterialPageState extends State<QuizMaterialPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 30),
-            if (questions.isNotEmpty)
-              QuizMaterialWidget(isoquizmaterialmodel: questions[currentMaterialIndex])
+            if (materials.isNotEmpty)
+              QuizMaterialWidget(isoquizmaterialmodel: materials[currentMaterialIndex])
             else
               const Center(
                 child: Text('No materials available for this category'),
@@ -63,8 +63,8 @@ class _QuizMaterialPageState extends State<QuizMaterialPage> {
                       context,
                       MaterialPageRoute(
                         builder: (context) => QuizQuestionPage(
-                          id_quizsubCategory: widget.isoquizsubcategorymodel.id_quizsubCategory,
-                          isoquizcategorymodel: widget.isoquizsubcategorymodel,
+                          id_quizsubCategory: widget.id_quizsubCategory,
+                          isoquizcategorymodel: null,
                         ),
                       ),
                     );

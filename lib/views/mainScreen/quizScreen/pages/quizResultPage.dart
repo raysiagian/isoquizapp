@@ -4,11 +4,11 @@ import 'package:quiz_iso_app/views/mainScreen/quizScreen/widget/isoquizResultWid
 import 'package:quiz_iso_app/models/isoQuizCategoryModel.dart';
 
 class ResultPage extends StatefulWidget {
-  final IsoQuizCategoryModel isoquizcategorymodel;
+  final IsoQuizCategoryModel? isoquizcategorymodel;
 
   const ResultPage({
     super.key,
-    required this.isoquizcategorymodel,
+    this.isoquizcategorymodel, // Nullable tanpa `required`
   });
 
   @override
@@ -19,7 +19,6 @@ class _ResultPageState extends State<ResultPage> {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
-    // final screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
       backgroundColor: LocalColorsStyle.primaryColor,
@@ -27,14 +26,24 @@ class _ResultPageState extends State<ResultPage> {
         children: [
           Padding(
             padding: EdgeInsets.only(
-              top: 30, 
-              left: screenWidth * 0.08, 
+              top: 30,
+              left: screenWidth * 0.08,
               right: screenWidth * 0.08,
             ),
             child: Center(
-              child: QuizResultWidget(
-                isoquizcategorymodel: widget.isoquizcategorymodel,
-              ),
+              child: widget.isoquizcategorymodel != null
+                  ? QuizResultWidget(
+                      isoquizcategorymodel: widget.isoquizcategorymodel,
+                    )
+                  : Text(
+                      'Data kategori tidak tersedia.',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
             ),
           ),
         ],
