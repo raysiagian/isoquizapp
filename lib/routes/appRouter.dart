@@ -6,8 +6,6 @@ import 'package:quiz_iso_app/views/mainScreen/authScreen/registerScreen/pages/ch
 import 'package:quiz_iso_app/views/mainScreen/authScreen/registerScreen/pages/registerPage.dart';
 import 'package:quiz_iso_app/views/mainScreen/homeScreen/pages/homePage.dart';
 import 'package:quiz_iso_app/views/mainScreen/profileScreen/pages/profilePage.dart';
-import 'package:quiz_iso_app/views/mainScreen/quizScreen/pages/quizMaterialPage.dart';
-import 'package:quiz_iso_app/views/mainScreen/quizScreen/pages/quizSubCategoryTestPage.dart';
 import 'package:quiz_iso_app/views/mainScreen/quizScreen/pages/quizSubCategoryWrapperPage.dart';
 import 'package:quiz_iso_app/views/mainScreen/splashScreen/pages/splashScreenPage.dart';
 import 'package:quiz_iso_app/views/mainScreen/wrapper/pages/wrapper.dart';
@@ -22,8 +20,31 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => LoginPage());
       case AppRouteConstants.registerPage:
         return MaterialPageRoute(builder: (_) => RegisterPage());
+      // case AppRouteConstants.genderPage:
+      //   return MaterialPageRoute(builder: (_) => ChooseGenderPage(
+
+      //   ));
       case AppRouteConstants.genderPage:
-        return MaterialPageRoute(builder: (_) => ChooseGenderPage());
+        if (settings.arguments is Map<String, dynamic>) {
+          final args = settings.arguments as Map<String, dynamic>;
+          return MaterialPageRoute(
+            builder: (_) => ChooseGenderPage(
+              userName: args['userName'] ?? '',
+              email: args['email'] ?? '',
+              phoneNumber: args['phoneNumber'] ?? '',
+              password: args['password'] ?? '',
+            ),
+          );
+        } else {
+          return MaterialPageRoute(
+            builder: (_) => Scaffold(
+              body: Center(
+                child: Text('Error: Invalid arguments for ChooseGenderPage'),
+              ),
+            ),
+          );
+        }
+
       case AppRouteConstants.forgetPasswordPage:
         return MaterialPageRoute(builder: (_) => ForgetPasswordPage());
       case AppRouteConstants.wrapper:
