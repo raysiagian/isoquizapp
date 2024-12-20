@@ -8,6 +8,7 @@ class AppRouteConstants {
   static const String profilePage = '/profile';
   static const String genderPage = '/gender';
   static const String quizPage= '/quiz';
+  static const String quizSubCategoryWrapperPage = '/quizSubCategoryWrapper';
   // static const String materiCategoryPage = '/materi';
   // static const String quizSubCategoryPage = '/quiz';
   // static const String materialPage ='/material';

@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_iso_app/models/isoQuizCategoryModel.dart';
 import 'package:quiz_iso_app/models/isoQuizSubCategoryModel.dart';
 import 'package:quiz_iso_app/views/mainScreen/quizScreen/widget/isoQuizSubCategoryCardWidget.dart';
 
 class QuizSubCategoryTestPage extends StatelessWidget {
+  final IsoQuizCategoryModel isoquizcategorymodel;
   final int id_quizCategory;
 
   const QuizSubCategoryTestPage({
     Key? key,
     required this.id_quizCategory,
+    required this.isoquizcategorymodel,
   }) : super(key: key);
 
   @override
@@ -53,6 +56,7 @@ class QuizSubCategoryTestPage extends StatelessWidget {
                   final subcategory = filteredSubCategories[index];
                   // Menggunakan IsoQuizSubCategoryCardWidget
                   return IsoQuizSubCategoryCardWidget(
+                    isoquizcategorymodel: isoquizcategorymodel,
                     isoquizsubcategorymodel: subcategory,
                   );
                 },

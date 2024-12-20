@@ -4,11 +4,11 @@ import 'package:quiz_iso_app/views/mainScreen/quizScreen/widget/isoquizResultWid
 import 'package:quiz_iso_app/models/isoQuizCategoryModel.dart';
 
 class ResultPage extends StatefulWidget {
-  final IsoQuizCategoryModel? isoquizcategorymodel;
+  final IsoQuizCategoryModel isoquizcategorymodel;
 
   const ResultPage({
     super.key,
-    this.isoquizcategorymodel, // Nullable tanpa `required`
+    required this.isoquizcategorymodel, // Nullable tanpa `required`
   });
 
   @override
@@ -19,6 +19,19 @@ class _ResultPageState extends State<ResultPage> {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
+
+    // Pastikan model tidak null sebelum memanggil QuizResultWidget
+    if (widget.isoquizcategorymodel == null) {
+      return Scaffold(
+        backgroundColor: LocalColorsStyle.primaryColor,
+        body: Center(
+          child: Text(
+            'Data kategori kuis tidak tersedia',
+            style: TextStyle(color: Colors.white, fontSize: 18),
+          ),
+        ),
+      );
+    }
 
     return Scaffold(
       backgroundColor: LocalColorsStyle.primaryColor,
@@ -31,19 +44,9 @@ class _ResultPageState extends State<ResultPage> {
               right: screenWidth * 0.08,
             ),
             child: Center(
-              child: widget.isoquizcategorymodel != null
-                  ? QuizResultWidget(
-                      isoquizcategorymodel: widget.isoquizcategorymodel,
-                    )
-                  : Text(
-                      'Data kategori tidak tersedia.',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
+              child: QuizResultWidget(
+                isoquizcategorymodel: widget.isoquizcategorymodel,
+              ),
             ),
           ),
         ],

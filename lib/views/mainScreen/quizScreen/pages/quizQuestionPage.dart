@@ -6,7 +6,7 @@ import 'package:quiz_iso_app/views/mainScreen/quizScreen/widget/isoQuizQuestionW
 
 class QuizQuestionPage extends StatefulWidget {
   final int id_quizsubCategory;
-  final IsoQuizCategoryModel? isoquizcategorymodel; // Add this parameter
+  final IsoQuizCategoryModel isoquizcategorymodel; // Add this parameter
 
   const QuizQuestionPage({
     Key? key,
@@ -91,7 +91,7 @@ class _QuizQuestionPageState extends State<QuizQuestionPage> {
                             context,
                             MaterialPageRoute(
                               builder: (context) => ResultPage(
-                               isoquizcategorymodel: widget.isoquizcategorymodel ?? IsoQuizCategoryModel.defaultModel(),
+                               isoquizcategorymodel: widget.isoquizcategorymodel,
                               ),
                             ),
                           );

@@ -11,13 +11,6 @@ class IsoQuizCategoryModel {
     // required this.explanation,
   });
 
-  static IsoQuizCategoryModel defaultModel() {
-    return IsoQuizCategoryModel(
-      id_quizCategory: 0,
-      title: 'Default Title',
-      image: 'default_image.png', // Sesuaikan nilai default image
-    );
-  }
 
    static final listIsoQuizCategory = [
     IsoQuizCategoryModel(

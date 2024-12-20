@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_iso_app/models/isoQuizCategoryModel.dart';
 import 'package:quiz_iso_app/models/isoQuizSubCategoryModel.dart';
 import 'package:quiz_iso_app/styles/localTextStyle.dart';
 import 'package:quiz_iso_app/views/mainScreen/quizScreen/pages/quizMaterialPage.dart';
 
 class IsoQuizSubCategoryCardWidget extends StatelessWidget {
+  final IsoQuizSubCategoryModel isoquizsubcategorymodel;
+  final IsoQuizCategoryModel isoquizcategorymodel;
+
   const IsoQuizSubCategoryCardWidget({
     Key? key,
     required this.isoquizsubcategorymodel,
+    required this.isoquizcategorymodel,
   }) : super(key: key);
 
-  final IsoQuizSubCategoryModel isoquizsubcategorymodel;
+
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +24,7 @@ class IsoQuizSubCategoryCardWidget extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (context) => QuizMaterialPage(
+              isoquizcategorymodel: isoquizcategorymodel,
               id_quizsubCategory: isoquizsubcategorymodel.id_quizsubCategory, isoquizsubcategorymodel: isoquizsubcategorymodel,
             ),
           ),

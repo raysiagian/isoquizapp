@@ -70,6 +70,7 @@ class _LoginTextFormWidgetState extends State<LoginTextFormWidget> {
             width: double.infinity,
             child: ElevatedButton(
               onPressed: () {
+                // print('Button has been pressed!');
                 Navigator.pushNamed(
                   context,
                   AppRouteConstants.wrapper,

@@ -32,16 +32,24 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => HomePage());
       case AppRouteConstants.profilePage:
         return MaterialPageRoute(builder: (_) => ProfilePage());
-      case AppRouteConstants.quizPage:
+      // case AppRouteConstants.quizPage:
+      //   final args = settings.arguments as Map<String, dynamic>;
+      //   return MaterialPageRoute(
+      //     builder: (_) => QuizSubCategoryWrapperPage(
+      //       quizCategory: args['quizCategory'],
+      //       id_quizCategory: args['id_quizCategory'],
+      //       isoquizcategorymodel: args['isoquizcategorymodel'],
+      //     ),
+      //   );
+      case AppRouteConstants.quizSubCategoryWrapperPage:
         final args = settings.arguments as Map<String, dynamic>;
         return MaterialPageRoute(
           builder: (_) => QuizSubCategoryWrapperPage(
-            quizCategory: args['quizCategory'],
-            id_quizCategory: args['id_quizCategory'],
-            isoquizcategorymodel: args['isoquizcategorymodel'],
+            isoquizcategorymodel: args['quizCategory'],
+            // id_quizCategory: args['id_quizCategory'],
+            // isoquizcategorymodel: args['isoquizcategorymodel'],
           ),
         );
-        
       // case AppRouteConstants.materiCategoryPage:
       //   return MaterialPageRoute(builder: (_) => MateriCategoryPage());
       // case AppRouteConstants.quizSubCategoryPage:

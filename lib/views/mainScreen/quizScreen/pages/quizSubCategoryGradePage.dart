@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class QuizSubCattegoryGradePage extends StatefulWidget {
-  const QuizSubCattegoryGradePage({super.key});
+class QuizSubCategoryGradePage extends StatefulWidget {
+  const QuizSubCategoryGradePage({super.key});
 
   @override
-  State<QuizSubCattegoryGradePage> createState() => _QuizSubCattegoryGradePageState();
+  State<QuizSubCategoryGradePage> createState() => _QuizSubCattegoryGradePageState();
 }
 
-class _QuizSubCattegoryGradePageState extends State<QuizSubCattegoryGradePage> {
+class _QuizSubCattegoryGradePageState extends State<QuizSubCategoryGradePage> {
   @override
   Widget build(BuildContext context) {
     return Container();

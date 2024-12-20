@@ -6,15 +6,13 @@ import 'package:quiz_iso_app/views/mainScreen/quizScreen/pages/quizSubCategoryGr
 import 'package:quiz_iso_app/views/mainScreen/quizScreen/pages/quizSubCategoryTestPage.dart';
 
 class QuizSubCategoryWrapperPage extends StatefulWidget {
-  final IsoQuizCategoryModel quizCategory;
-  final int id_quizCategory;
   final IsoQuizCategoryModel isoquizcategorymodel;
+  // final int id_quizCategory;
 
   const QuizSubCategoryWrapperPage({
     Key? key,
-    required this.quizCategory,
-    required this.id_quizCategory,
     required this.isoquizcategorymodel,
+    // required this.id_quizCategory,
   }) : super(key: key);
 
   @override
@@ -94,7 +92,7 @@ class _QuizSubCategoryWrapperPageState
               // Konten AppBar
               AppBar(
                 title: Text(
-                  widget.quizCategory.title,
+                  widget.isoquizcategorymodel.title,
                   style: LocalTextStyle.textTheme.titleLarge!.copyWith(
                     color: Colors.white,
                   ),
@@ -135,8 +133,9 @@ class _QuizSubCategoryWrapperPageState
           children: [
             QuizSubCategoryTestPage(
               id_quizCategory: widget.isoquizcategorymodel.id_quizCategory,
+              isoquizcategorymodel: widget.isoquizcategorymodel,
             ),
-            QuizSubCattegoryGradePage(),
+            QuizSubCategoryGradePage(),
           ],
         ),
       ),

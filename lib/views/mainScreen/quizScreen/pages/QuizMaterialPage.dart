@@ -1,5 +1,6 @@
 // QuizMaterialPage.dart
 import 'package:flutter/material.dart';
+import 'package:quiz_iso_app/models/isoQuizCategoryModel.dart';
 import 'package:quiz_iso_app/models/isoQuizMaterialModel.dart';
 import 'package:quiz_iso_app/models/isoQuizSubCategoryModel.dart';
 import 'package:quiz_iso_app/styles/localColors.dart';
@@ -9,11 +10,13 @@ import 'package:quiz_iso_app/views/mainScreen/quizScreen/widget/isoQuizMaterialW
 class QuizMaterialPage extends StatefulWidget {
   final IsoQuizSubCategoryModel isoquizsubcategorymodel;
   final int id_quizsubCategory;
+  final IsoQuizCategoryModel isoquizcategorymodel;
 
   const QuizMaterialPage({
     Key? key,
     required this.id_quizsubCategory,
     required this.isoquizsubcategorymodel,
+    required this.isoquizcategorymodel,
   }) : super(key: key);
 
   @override
@@ -64,7 +67,7 @@ class _QuizMaterialPageState extends State<QuizMaterialPage> {
                       MaterialPageRoute(
                         builder: (context) => QuizQuestionPage(
                           id_quizsubCategory: widget.id_quizsubCategory,
-                          isoquizcategorymodel: null,
+                          isoquizcategorymodel: widget.isoquizcategorymodel,
                         ),
                       ),
                     );
