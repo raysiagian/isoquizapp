@@ -6,6 +6,7 @@ class User {
   final String phoneNumber;
   final String password;
   final String gender;
+  final String is_Active;
   final String created_At;  // Changed to String
   final String updated_At;  // Changed to String
 
@@ -17,6 +18,7 @@ class User {
     required this.phoneNumber,
     required this.password,
     required this.gender,
+    required this.is_Active,
     required this.created_At,
     required this.updated_At,
   });
@@ -40,6 +42,7 @@ class User {
       email: json['email'] as String,
       password: json['password'] as String,
       gender: json['gender'] as String,
+      is_Active:json['is_Active'] as String,
       created_At: json['created_At'] as String,
       updated_At: json['updated_At'] as String,
     );

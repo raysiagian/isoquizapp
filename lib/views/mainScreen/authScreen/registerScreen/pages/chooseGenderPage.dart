@@ -9,14 +9,14 @@ import 'package:quiz_iso_app/views/mainScreen/authScreen/registerScreen/widget/c
 import 'package:http/http.dart' as http;
 
 class ChooseGenderPage extends StatefulWidget {
-  final String userName;
+  final String username;
   final String email;
   final String phoneNumber;
   final String password;
 
   const ChooseGenderPage({
     Key? key,
-    required this.userName,
+    required this.username,
     required this.email,
     required this.phoneNumber,
     required this.password,
@@ -51,7 +51,7 @@ class _ChooseAvatarPageState extends State<ChooseGenderPage> {
         Uri.parse(apiUrl + 'api/register'),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({
-          'username': widget.userName,  // Gantilah 'name' dengan 'username' sesuai API Anda
+          'username': widget.username,
           'phoneNumber': widget.phoneNumber,
           'email': widget.email,
           'password': widget.password,

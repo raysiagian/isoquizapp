@@ -82,8 +82,8 @@ class _RegisterTextFromWidgetState extends State<RegisterTextFormWidget> {
             ),
           ),
           const SizedBox(height: 20.0),
-
-                    // Form Phone Number
+          
+          // Form Phone Number
           TextFormField(
             controller: _phoneNumberController,
             validator: (value) {
@@ -222,7 +222,7 @@ class _RegisterTextFromWidgetState extends State<RegisterTextFormWidget> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => ChooseGenderPage(
-                        userName: _userNameController.text,
+                        username: _userNameController.text,
                         email: _emailController.text,
                         phoneNumber: _phoneNumberController.text,
                         password: _passwordController.text,

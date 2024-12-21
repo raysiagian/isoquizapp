@@ -29,7 +29,7 @@ class AppRouter {
           final args = settings.arguments as Map<String, dynamic>;
           return MaterialPageRoute(
             builder: (_) => ChooseGenderPage(
-              userName: args['userName'] ?? '',
+              username: args['userName'] ?? '',
               email: args['email'] ?? '',
               phoneNumber: args['phoneNumber'] ?? '',
               password: args['password'] ?? '',
