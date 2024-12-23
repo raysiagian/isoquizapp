@@ -11,6 +11,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+    void _handleLoginSuccess(String token) {
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,7 +66,9 @@ class _LoginPageState extends State<LoginPage> {
                 mainAxisAlignment: MainAxisAlignment.end, // Posisikan ke bawah
                 children: [
                   // Menambahkan jarak
-                  LoginTextFormWidget(), // Widget login
+                  LoginTextFormWidget(
+                    onLoginSuccess: _handleLoginSuccess,
+                  ), // Widget login
                    const SizedBox(height: 80),
                 ],
               ),

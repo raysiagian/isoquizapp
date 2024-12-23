@@ -27,7 +27,9 @@ class _WrapperState extends State<Wrapper> {
           });
         },
         children: [
-          HomePage(),
+          HomePage(
+            token: 'token',
+          ),
           RankPage(),
           HistoryPage(),
           ProfilePage(),

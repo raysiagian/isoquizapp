@@ -50,7 +50,9 @@ class AppRouter {
       case AppRouteConstants.wrapper:
         return MaterialPageRoute(builder: (_) => Wrapper());
       case AppRouteConstants.homePage:
-        return MaterialPageRoute(builder: (_) => HomePage());
+        return MaterialPageRoute(builder: (_) => HomePage(
+          token:'token',
+        ));
       case AppRouteConstants.profilePage:
         return MaterialPageRoute(builder: (_) => ProfilePage());
       // case AppRouteConstants.quizPage:

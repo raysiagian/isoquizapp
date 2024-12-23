@@ -4,7 +4,7 @@ class User {
   final String username;
   final String email;
   final String phoneNumber;
-  final String password;
+  // final String password;
   final String gender;
   final String is_Active;
   final String created_At;  // Changed to String
@@ -16,22 +16,12 @@ class User {
     required this.username,
     required this.email,
     required this.phoneNumber,
-    required this.password,
+    // required this.password,
     required this.gender,
     required this.is_Active,
     required this.created_At,
     required this.updated_At,
   });
-
-  // static final listIsoUser = [
-  //   User(
-  //     id_User: 1, 
-  //     username: 'Mitski', 
-  //     email: 'mitski@gmail.com', 
-  //     phoneNumber: '08123332234', 
-  //     password: 'mitski12345'
-  //   ),
-  // ];
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
@@ -40,12 +30,11 @@ class User {
       username: json['username'] as String,
       phoneNumber: json['phoneNumber'] as String,
       email: json['email'] as String,
-      password: json['password'] as String,
+      // password: json['password'] as String,
       gender: json['gender'] as String,
       is_Active:json['is_Active'] as String,
       created_At: json['created_At'] as String,
       updated_At: json['updated_At'] as String,
     );
   }
-
 }

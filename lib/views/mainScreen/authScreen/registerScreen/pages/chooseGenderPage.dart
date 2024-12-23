@@ -105,8 +105,8 @@ class _ChooseAvatarPageState extends State<ChooseGenderPage> {
                 ),
                 SizedBox(height: 80),
                 ChooseGenderWidget(
-                  maleAvatar: 'assets/images/male.png',
-                  femaleAvatar: 'assets/images/female.png',
+                  maleAvatar: 'assets/images/Male Choose Gender.png',
+                  femaleAvatar: 'assets/images/Female Choose Gender.png',
                   selectedOption: selectedOption,
                   onOptionSelected: (String option) {
                     setState(() {
