@@ -90,6 +90,41 @@ Future<User> fetchUser(String token) async {
   }
 }
 
+//  Future<List<IsoQuizCategoryModel>> fetchCategory() async {
+//     try {
+//       final response = await http.get(Uri.parse(apiUrl + 'api/getCategory'));
+
+//       if (response.statusCode == 200) {
+//         final jsonData = jsonDecode(response.body)['data'] as List<dynamic>;
+//         return jsonData.map((e) => IsoQuizCategoryModel.fromJson(e)).toList();
+//       } else {
+//         throw Exception('Failed to load category from API: ${response.statusCode}');
+//       }
+//     } catch (e) {
+//       throw Exception('Error fetching category: $e');
+//     }
+//   }
+
+  Future<List<IsoQuizCategoryModel>> fetchCategory() async {
+    try {
+      final response = await http.get(Uri.parse(apiUrl + 'api/getCategory'));
+      if (response.statusCode == 200) {
+        final jsonData = jsonDecode(response.body);
+        if (jsonData['data'] != null) {
+          final data = jsonData['data'] as List<dynamic>;
+          return data.map((e) => IsoQuizCategoryModel.fromJson(e)).toList();
+        } else {
+          throw Exception('Invalid data structure in API response.');
+        }
+      } else {
+        throw Exception('Failed to load category from API: ${response.statusCode}');
+      }
+    } catch (e) {
+      throw Exception('Error fetching category: $e');
+    }
+  }
+
+
     
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -155,15 +190,42 @@ Future<User> fetchUser(String token) async {
               TotalScoreandRanksWidget(),
               const SizedBox(height: 20),
               // ListView.builder dengan shrinkWrap
-              ListView.builder(
-                shrinkWrap: true, // Membatasi tinggi sesuai konten
-                physics: NeverScrollableScrollPhysics(), // Menghindari konflik scroll
-                itemCount: IsoQuizCategoryModel.listIsoQuizCategory.length,
-                itemBuilder: (context, index) {
-                  final category = IsoQuizCategoryModel.listIsoQuizCategory[index];
-                  return QuizCardWidget(
-                    isoquizcategorymodel: category,
-                  );
+              // ListView.builder(
+              //   shrinkWrap: true, // Membatasi tinggi sesuai konten
+              //   physics: NeverScrollableScrollPhysics(), // Menghindari konflik scroll
+              //   itemCount: IsoQuizCategoryModel.listIsoQuizCategory.length,
+              //   itemBuilder: (context, index) {
+              //     final category = IsoQuizCategoryModel.listIsoQuizCategory[index];
+              //     return QuizCardWidget(
+              //       isoquizcategorymodel: category,
+              //     );
+              //   },
+              // ),
+              FutureBuilder<List<IsoQuizCategoryModel>>(
+                future: fetchCategory(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else if (snapshot.hasError) {
+                    return Center(
+                      child: Text('Error fetching category: ${snapshot.error}'),
+                    );
+                  } else {
+                    final categoryList = snapshot.data!;
+                    return ListView.builder(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: categoryList.length,
+                      itemBuilder: (context, index) {
+                        final category = categoryList[index];
+                        return QuizCardWidget(
+                          isoquizcategorymodel: category,
+                        );
+                      },
+                    );
+                  }
                 },
               ),
 
