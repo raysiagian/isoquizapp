@@ -45,7 +45,6 @@ _loadTokenAndFetchUser() async {
   final storage = FlutterSecureStorage();
   String? token = await storage.read(key: 'access_token');
 
-
   if (token != null) {
     setState(() {
       _token = token;

@@ -15,7 +15,7 @@ class User {
     required this.id_Role,
     required this.username,
     required this.email,
-    required this.phoneNumber,
+    required this.phoneNumber,  
     // required this.password,
     required this.gender,
     required this.is_Active,
