@@ -11,25 +11,26 @@ class IsoQuizMaterialModel {
     required this.data,
   });
 
-  static final listIsoQuizMaterial = [
-    IsoQuizMaterialModel(
-      id_quizMaterial: 1, 
-      id_quizsubCategory: 1, 
-      title: 'Penetapan Peram dan Tanggung Jawab Keamanan Informasi dalam ISO 27001:2022', 
-      data: 'Penetapan Peram dan Tanggung Jawab Keamanan Informasi dalam ISO 27001:2022',
-    ),
-     IsoQuizMaterialModel(
-      id_quizMaterial: 2, 
-      id_quizsubCategory: 2, 
-      title: 'Penetapan Peram dan Tanggung Jawab Keamanan Informasi dalam ISO 27001:2022', 
-      data: 'Penetapan Peram dan Tanggung Jawab Keamanan Informasi dalam ISO 27001:2022',
-    ),
-     IsoQuizMaterialModel(
-      id_quizMaterial: 3, 
-      id_quizsubCategory: 3, 
-      title: 'Penetapan Peram dan Tanggung Jawab Keamanan Informasi dalam ISO 27001:2022', 
-      data: 'Penetapan Peram dan Tanggung Jawab Keamanan Informasi dalam ISO 27001:2022',
-    ),
-  ];
+   factory IsoQuizMaterialModel.fromJson(Map<String, dynamic> json) {
+    return IsoQuizMaterialModel(
+      id_quizMaterial: json["id_quizMaterial"] as int,
+      id_quizsubCategory: json["id_quizsubCategory"] as int,
+      title: json["title"] as String,
+      data: json["data"] as String,
+      // image: json["imageCard"] as String,
+    );
+  }
 
+  Map<String, dynamic> toJson() => {
+    'id_quizMaterial': id_quizMaterial,
+    'id_quizsubCategory': id_quizsubCategory,
+    'title': title,
+    'data': data,
+    //'imageCard': imageCard,
+  };
+
+  @override
+  String toString() {
+    return 'IsoQuizCategoryModel{id_quizsubCategory: $id_quizsubCategory, id_quizMaterial: $id_quizMaterial, title: $title, data: $data}';
+  }
 }

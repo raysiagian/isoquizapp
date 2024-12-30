@@ -11,7 +11,7 @@ class IsoQuizCategoryModel {
     // required this.explanation,
   });
 
-   factory IsoQuizCategoryModel.fromJson(Map<String, dynamic> json) {
+  factory IsoQuizCategoryModel.fromJson(Map<String, dynamic> json) {
     return IsoQuizCategoryModel(
       id_quizCategory: json["id_quizCategory"] as int,
       title: json["title"] as String,

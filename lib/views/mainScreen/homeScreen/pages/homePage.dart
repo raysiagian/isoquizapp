@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:quiz_iso_app/models/isoQuizCategoryModel.dart';
@@ -37,93 +36,164 @@ class _HomePageState extends State<HomePage> {
   }
 
 
-_loadTokenAndFetchUser() async {
-  // SharedPreferences prefs = await SharedPreferences.getInstance();
-  // // String? token = await storage.read(key: 'access_token'); 
-  // String? token = prefs.getString('access_token'); 
+  // _loadTokenAndFetchUser() async {
+  //   // SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   // // String? token = await storage.read(key: 'access_token'); 
+  //   // String? token = prefs.getString('access_token'); 
 
-  final storage = FlutterSecureStorage();
-  String? token = await storage.read(key: 'access_token');
+  //   final storage = FlutterSecureStorage();
+  //   String? token = await storage.read(key: 'access_token');
 
-  if (token != null) {
-    setState(() {
-      _token = token;
-    });
-    print("Token found: $token");
+  //   if (token != null) {
+  //     setState(() {
+  //       _token = token;
+  //     });
+  //     print("Token found: $token");
 
-    try {
-      // Load user menggunakan token
-      final user = await fetchUser(token);
+  //     try {
+  //       // Load user menggunakan token
+  //       final user = await fetchUser(token);
+  //       setState(() {
+  //         _loggedInUser = user;
+  //       });
+  //     } catch (e) {
+  //       print("Error fetching user: $e");
+  //     }
+  //   } else {
+  //     print("No token found, redirecting to login");
+  //     Navigator.pushReplacementNamed(context, '/login');
+  //   }
+  // }
+
+    _loadTokenAndFetchUser() async {
+    final storage = FlutterSecureStorage();
+    String? token = await storage.read(key: 'access_token');
+
+    if (token != null) {
       setState(() {
-        _loggedInUser = user;
+        _token = token;
       });
-    } catch (e) {
-      print("Error fetching user: $e");
-    }
-  } else {
-    print("No token found, redirecting to login");
-    Navigator.pushReplacementNamed(context, '/login');
-  }
-}
+      print("Token found: $token");
 
-Future<User> fetchUser(String token) async {
-  try {
-    final response = await http.get(
-      Uri.parse(apiUrl + 'api/user'), // Pastikan endpoint benar
-      headers: {
-        'Authorization': 'Bearer $token',
-      },
-    );
-
-    print('Response Status Code: ${response.statusCode}');
-    print('Response Body: ${response.body}');
-
-    if (response.statusCode == 200) {
-      final jsonData = jsonDecode(response.body);
-      return User.fromJson(jsonData);
+      // Coba memuat user dari cache terlebih dahulu
+      final cachedUser = await loadUserFromCache();
+      if (cachedUser != null) {
+        setState(() {
+          _loggedInUser = cachedUser;
+        });
+        print("Loaded user from cache");
+      } else {
+        // Jika tidak ada di cache, fetch dari API
+        try {
+          final user = await fetchUser(token);
+          setState(() {
+            _loggedInUser = user;
+          });
+          await saveUserToCache(user);
+        } catch (e) {
+          print("Error fetching user: $e");
+        }
+      }
     } else {
-      throw Exception('Failed to load user: ${response.reasonPhrase}');
+      print("No token found, redirecting to login");
+      Navigator.pushReplacementNamed(context, '/login');
     }
-  } catch (e) {
-    print('Error: $e');
-    throw Exception('Error fetching user: $e');
   }
-}
 
-//  Future<List<IsoQuizCategoryModel>> fetchCategory() async {
-//     try {
-//       final response = await http.get(Uri.parse(apiUrl + 'api/getCategory'));
+  Future<User> fetchUser(String token) async {
+    try {
+      final response = await http.get(
+        Uri.parse(apiUrl + 'api/user'), // Pastikan endpoint benar
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+      );
 
-//       if (response.statusCode == 200) {
-//         final jsonData = jsonDecode(response.body)['data'] as List<dynamic>;
-//         return jsonData.map((e) => IsoQuizCategoryModel.fromJson(e)).toList();
-//       } else {
-//         throw Exception('Failed to load category from API: ${response.statusCode}');
-//       }
-//     } catch (e) {
-//       throw Exception('Error fetching category: $e');
-//     }
-//   }
+      print('Response Status Code: ${response.statusCode}');
+      print('Response Body: ${response.body}');
+
+      if (response.statusCode == 200) {
+        final jsonData = jsonDecode(response.body);
+        return User.fromJson(jsonData);
+      } else {
+        throw Exception('Failed to load user: ${response.reasonPhrase}');
+      }
+    } catch (e) {
+      print('Error: $e');
+      throw Exception('Error fetching user: $e');
+    }
+  }
+
+  Future<void> saveUserToCache(User user) async {
+    final prefs = await SharedPreferences.getInstance();
+    final userData = jsonEncode(user.toJson());
+    await prefs.setString('cachedUser', userData);
+  }
+
+   Future<User?> loadUserFromCache() async {
+    final prefs = await SharedPreferences.getInstance();
+    final cachedData = prefs.getString('cachedUser');
+    if (cachedData != null) {
+      final jsonData = jsonDecode(cachedData);
+      return User.fromJson(jsonData);
+    }
+    return null;
+  }
+
 
   Future<List<IsoQuizCategoryModel>> fetchCategory() async {
+    final prefs = await SharedPreferences.getInstance();
+    final cachedData = prefs.getString('cachedCategories');
+
+    if (cachedData != null) {
+      // Parse data dari cache
+      final jsonData = jsonDecode(cachedData) as List<dynamic>;
+      final cachedCategories =
+          jsonData.map((e) => IsoQuizCategoryModel.fromJson(e)).toList();
+
+      // Lakukan refresh cache di latar belakang
+      refreshCategoryDataInBackground();
+
+      // Kembalikan data cache
+      return cachedCategories;
+    } else {
+      // Jika tidak ada cache, fetch dari API
+      final categoryList = await fetchCategoryFromApi();
+      await cacheCategoryData(categoryList);
+      return categoryList;
+    }
+  }
+
+
+    Future<List<IsoQuizCategoryModel>> fetchCategoryFromApi() async {
     try {
       final response = await http.get(Uri.parse(apiUrl + 'api/getCategory'));
       if (response.statusCode == 200) {
-        final jsonData = jsonDecode(response.body);
-        if (jsonData['data'] != null) {
-          final data = jsonData['data'] as List<dynamic>;
-          return data.map((e) => IsoQuizCategoryModel.fromJson(e)).toList();
-        } else {
-          throw Exception('Invalid data structure in API response.');
-        }
+        final jsonData = jsonDecode(response.body)['data'] as List<dynamic>;
+        return jsonData.map((e) => IsoQuizCategoryModel.fromJson(e)).toList();
       } else {
-        throw Exception('Failed to load category from API: ${response.statusCode}');
+        throw Exception(
+            'Failed to load category from API: ${response.statusCode}');
       }
     } catch (e) {
       throw Exception('Error fetching category: $e');
     }
   }
 
+    Future<void> cacheCategoryData(List<IsoQuizCategoryModel> categoryList) async {
+    final prefs = await SharedPreferences.getInstance();
+    final jsonData = categoryList.map((e) => e.toJson()).toList();
+    prefs.setString('cachedCategories', jsonEncode(jsonData));
+  }
+
+  Future<void> refreshCategoryDataInBackground() async {
+    try {
+      final categoryList = await fetchCategoryFromApi();
+      await cacheCategoryData(categoryList);
+    } catch (e) {
+      print("Background refresh failed: $e");
+    }
+  }
 
     
   Widget build(BuildContext context) {
@@ -189,45 +259,38 @@ Future<User> fetchUser(String token) async {
               // Data lainnya di atas ListView.builder
               TotalScoreandRanksWidget(),
               const SizedBox(height: 20),
-              // ListView.builder dengan shrinkWrap
-              // ListView.builder(
-              //   shrinkWrap: true, // Membatasi tinggi sesuai konten
-              //   physics: NeverScrollableScrollPhysics(), // Menghindari konflik scroll
-              //   itemCount: IsoQuizCategoryModel.listIsoQuizCategory.length,
-              //   itemBuilder: (context, index) {
-              //     final category = IsoQuizCategoryModel.listIsoQuizCategory[index];
-              //     return QuizCardWidget(
-              //       isoquizcategorymodel: category,
-              //     );
-              //   },
-              // ),
-              FutureBuilder<List<IsoQuizCategoryModel>>(
-                future: fetchCategory(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  } else if (snapshot.hasError) {
-                    return Center(
-                      child: Text('Error fetching category: ${snapshot.error}'),
-                    );
-                  } else {
-                    final categoryList = snapshot.data!;
-                    return ListView.builder(
-                      shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
-                      itemCount: categoryList.length,
-                      itemBuilder: (context, index) {
-                        final category = categoryList[index];
-                        return QuizCardWidget(
-                          isoquizcategorymodel: category,
-                        );
-                      },
-                    );
-                  }
-                },
-              ),
+            FutureBuilder<List<IsoQuizCategoryModel>>(
+              future: fetchCategory(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                } else if (snapshot.hasError) {
+                  return Center(
+                    child:
+                        Text('Error fetching category: ${snapshot.error}'),
+                  );
+                } else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+                  final categoryList = snapshot.data!;
+                  return ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: categoryList.length,
+                    itemBuilder: (context, index) {
+                      final category = categoryList[index];
+                      return QuizCardWidget(
+                        isoquizcategorymodel: category,
+                      );
+                    },
+                  );
+                } else {
+                  return const Center(
+                    child: Text('No categories available.'),
+                  );
+                }
+              },
+            ),
 
               // Data lainnya di bawah ListView.builder
               const SizedBox(height: 20),

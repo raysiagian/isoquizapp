@@ -37,4 +37,20 @@ class User {
       updated_At: json['updated_At'] as String,
     );
   }
+
+    Map<String, dynamic> toJson() {
+    return {
+      'id_User': id_User,
+      'id_Role': id_Role,
+      'username': username,
+      'email': email,
+      'phoneNumber': phoneNumber,
+      // 'password': password,  // Uncomment if password is needed
+      'gender': gender,
+      'is_Active': is_Active,
+      'created_At': created_At,
+      'updated_At': updated_At,
+    };
+  }
+  
 }
