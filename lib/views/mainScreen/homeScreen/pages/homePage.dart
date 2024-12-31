@@ -65,40 +65,81 @@ class _HomePageState extends State<HomePage> {
   //   }
   // }
 
-    _loadTokenAndFetchUser() async {
-    final storage = FlutterSecureStorage();
-    String? token = await storage.read(key: 'access_token');
+  //   _loadTokenAndFetchUser() async {
+  //   final storage = FlutterSecureStorage();
+  //   String? token = await storage.read(key: 'access_token');
 
-    if (token != null) {
+  //   if (token != null) {
+  //     setState(() {
+  //       _token = token;
+  //     });
+  //     print("Token found: $token");
+
+  //     // Coba memuat user dari cache terlebih dahulu
+  //     final cachedUser = await loadUserFromCache();
+  //     if (cachedUser != null) {
+  //       setState(() {
+  //         _loggedInUser = cachedUser;
+  //       });
+  //       print("Loaded user from cache");
+  //     } else {
+  //       // Jika tidak ada di cache, fetch dari API
+  //       try {
+  //         final user = await fetchUser(token);
+  //         setState(() {
+  //           _loggedInUser = user;
+  //         });
+  //         await saveUserToCache(user);
+  //       } catch (e) {
+  //         print("Error fetching user: $e");
+  //       }
+  //     }
+  //   } else {
+  //     print("No token found, redirecting to login");
+  //     Navigator.pushReplacementNamed(context, '/login');
+  //   }
+  // }
+
+  _loadTokenAndFetchUser() async {
+  final storage = FlutterSecureStorage();
+  String? token = await storage.read(key: 'access_token');
+
+  if (token != null) {
+    setState(() {
+      _token = token;
+    });
+    print("Token found: $token");
+
+    try {
+      // Selalu fetch user dari API
+      final user = await fetchUser(token);
       setState(() {
-        _token = token;
+        _loggedInUser = user;
       });
-      print("Token found: $token");
 
-      // Coba memuat user dari cache terlebih dahulu
+      // Cache data user setelah fetch berhasil
+      await saveUserToCache(user);
+      print("User data fetched and cached");
+    } catch (e) {
+      print("Error fetching user: $e");
+
+      // Jika terjadi error, coba ambil data dari cache
       final cachedUser = await loadUserFromCache();
       if (cachedUser != null) {
         setState(() {
           _loggedInUser = cachedUser;
         });
-        print("Loaded user from cache");
+        print("Loaded user from cache after error");
       } else {
-        // Jika tidak ada di cache, fetch dari API
-        try {
-          final user = await fetchUser(token);
-          setState(() {
-            _loggedInUser = user;
-          });
-          await saveUserToCache(user);
-        } catch (e) {
-          print("Error fetching user: $e");
-        }
+        print("No cached user data available");
       }
-    } else {
-      print("No token found, redirecting to login");
-      Navigator.pushReplacementNamed(context, '/login');
     }
+  } else {
+    print("No token found, redirecting to login");
+    Navigator.pushReplacementNamed(context, '/login');
   }
+}
+
 
   Future<User> fetchUser(String token) async {
     try {
