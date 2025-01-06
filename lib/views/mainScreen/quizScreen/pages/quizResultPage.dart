@@ -5,10 +5,12 @@ import 'package:quiz_iso_app/models/isoQuizCategoryModel.dart';
 
 class ResultPage extends StatefulWidget {
   final IsoQuizCategoryModel isoquizcategorymodel;
+  final int score;
 
   const ResultPage({
     super.key,
     required this.isoquizcategorymodel, // Nullable tanpa `required`
+    required this.score,
   });
 
   @override
@@ -46,6 +48,7 @@ class _ResultPageState extends State<ResultPage> {
             child: Center(
               child: QuizResultWidget(
                 isoquizcategorymodel: widget.isoquizcategorymodel,
+                score: widget.score,
               ),
             ),
           ),

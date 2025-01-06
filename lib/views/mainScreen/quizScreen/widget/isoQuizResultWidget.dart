@@ -7,15 +7,16 @@ import 'package:quiz_iso_app/views/mainScreen/quizScreen/pages/quizSubCategoryWr
 
 class QuizResultWidget extends StatelessWidget {
   final IsoQuizCategoryModel isoquizcategorymodel;
+  final int score; // Terima score dari ResultPage
 
   const QuizResultWidget({
     Key? key,
     required this.isoquizcategorymodel,
+    required this.score, // Terima score
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-
     final screenWidth = MediaQuery.of(context).size.width;
     return Center(
       child: Container(
@@ -47,7 +48,12 @@ class QuizResultWidget extends StatelessWidget {
             ),
             SizedBox(height: 10),
             Text(
-              'Nilai kamu : 100',
+              'Nilai Anda: $score', // Tampilkan nilai disini
+              style: LocalTextStyle.textTheme.bodyLarge!.copyWith(
+                color: Colors.black,
+                fontWeight: FontWeight.w500,
+              ),
+              textAlign: TextAlign.center,
             ),
             SizedBox(height: 40),
             Padding(
@@ -56,20 +62,19 @@ class QuizResultWidget extends StatelessWidget {
                 height: 50,
                 width: double.infinity,
                 child: ElevatedButton(
-                onPressed: () {
-                  print('Button pressed'); 
-                  print(isoquizcategorymodel.title);
-                  print(isoquizcategorymodel.id_quizCategory);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => QuizSubCategoryWrapperPage(
-                        isoquizcategorymodel: isoquizcategorymodel,
+                  onPressed: () {
+                    print('Button pressed');
+                    print(isoquizcategorymodel.title);
+                    print(isoquizcategorymodel.id_quizCategory);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => QuizSubCategoryWrapperPage(
+                          isoquizcategorymodel: isoquizcategorymodel,
+                        ),
                       ),
-                    ),
-                  );
-                },
-
+                    );
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: LocalColorsStyle.primaryColor,
                     shape: RoundedRectangleBorder(

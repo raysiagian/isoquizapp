@@ -147,7 +147,10 @@ class _QuizSubCategoryWrapperPageState
               id_quizCategory: widget.isoquizcategorymodel.id_quizCategory,
               isoquizcategorymodel: widget.isoquizcategorymodel,
             ),
-            QuizSubCategoryGradePage(),
+            QuizSubCategoryGradePage(
+               id_quizCategory: widget.isoquizcategorymodel.id_quizCategory,
+              isoquizcategorymodel: widget.isoquizcategorymodel,
+            ),
           ],
         ),
       ),

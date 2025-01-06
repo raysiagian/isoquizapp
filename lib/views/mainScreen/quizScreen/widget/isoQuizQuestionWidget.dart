@@ -7,10 +7,11 @@ class QuisQuestionWidget extends StatefulWidget {
   const QuisQuestionWidget({
     Key? key,
     required this.isoquizquestionmodel,
-  }): super(key: key);
+    required this.onAnswerSelected,
+  }) : super(key: key);
 
   final IsoQuizQuestionModel isoquizquestionmodel;
-
+  final ValueChanged<bool> onAnswerSelected;
 
   @override
   State<QuisQuestionWidget> createState() => _QuisQuestionWidgetState();
@@ -18,6 +19,14 @@ class QuisQuestionWidget extends StatefulWidget {
 
 class _QuisQuestionWidgetState extends State<QuisQuestionWidget> {
   String? selectedOption;
+
+  void _handleAnswerSelection(String selectedOption) {
+    bool isCorrect = selectedOption == widget.isoquizquestionmodel.correct_Answer;
+    widget.onAnswerSelected(isCorrect); // Notify the parent about the correct answer
+    setState(() {
+      this.selectedOption = selectedOption;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +41,7 @@ class _QuisQuestionWidgetState extends State<QuisQuestionWidget> {
             border: Border.all(
               width: 1,
               color: Colors.grey,
-            )
+            ),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -48,20 +57,22 @@ class _QuisQuestionWidgetState extends State<QuisQuestionWidget> {
         ),
         // Option
         const SizedBox(height: 20),
-        QuizOptionWidget(
-          option_A: widget.isoquizquestionmodel.option_A,
-          option_B: widget.isoquizquestionmodel.option_B,
-          option_C: widget.isoquizquestionmodel.option_C,
-          option_D: widget.isoquizquestionmodel.option_D,
-          option_E: widget.isoquizquestionmodel.option_E,
-          selectedOption: selectedOption, 
-          onOptionSelected: (String option) {
-            setState(() {
-              selectedOption = option; // Perbarui opsi yang dipilih
-            });
-          },
+        Column(
+          children: [
+            widget.isoquizquestionmodel.option_A,
+            widget.isoquizquestionmodel.option_B,
+            widget.isoquizquestionmodel.option_C,
+            widget.isoquizquestionmodel.option_D,
+            widget.isoquizquestionmodel.option_E,
+          ]
+              .map((option) => QuizOptionWidget(
+                    option: option,
+                    isSelected: selectedOption == option,
+                    onTap: () => _handleAnswerSelection(option),
+                  ))
+              .toList(),
         ),
-      ]
+      ],
     );
   }
 }
