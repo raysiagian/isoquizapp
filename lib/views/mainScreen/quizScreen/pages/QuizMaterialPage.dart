@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:quiz_iso_app/models/isoQuizCategoryModel.dart';
 import 'package:quiz_iso_app/models/isoQuizMaterialModel.dart';
@@ -8,7 +7,6 @@ import 'package:quiz_iso_app/static/apiUrl.dart';
 import 'package:quiz_iso_app/styles/localColors.dart';
 import 'package:quiz_iso_app/views/mainScreen/quizScreen/pages/quizQuestionPage.dart';
 import 'package:quiz_iso_app/views/mainScreen/quizScreen/widget/isoQuizMaterialWidget.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
 class QuizMaterialPage extends StatefulWidget {
@@ -29,6 +27,7 @@ class QuizMaterialPage extends StatefulWidget {
 
 class _QuizMaterialPageState extends State<QuizMaterialPage> {
   late Future<List<IsoQuizMaterialModel>> _materialFuture;
+  bool _isLoading = true;
 
   @override
   void initState() {
@@ -36,52 +35,45 @@ class _QuizMaterialPageState extends State<QuizMaterialPage> {
     _materialFuture = fetchMaterial();
   }
 
-  Future<List<IsoQuizMaterialModel>> fetchMaterial() async {
-    final prefs = await SharedPreferences.getInstance();
-    final cachedData = prefs.getString('cachedMaterial');
+  // Future<List<IsoQuizMaterialModel>> fetchMaterial() async {
+  //   try {
+  //     final url = Uri.parse(apiUrl + 'api/materialbyIdSubCategory?id_quizSubCategory=${widget.id_quizsubCategory}');
+  //     print('Fetching materials from: $url');
 
-    if (cachedData != null) {
-      final jsonData = jsonDecode(cachedData) as List<dynamic>;
-      final cachedMaterial =
-          jsonData.map((e) => IsoQuizMaterialModel.fromJson(e)).toList();
+  //     final response = await http.get(url);
 
-      refreshMaterialDataInBackground();
+  //     if (response.statusCode == 200) {
+  //       final jsonData = jsonDecode(response.body)['data'] as List<dynamic>;
+  //       return jsonData.map((e) => IsoQuizMaterialModel.fromJson(e)).toList();
+  //     } else {
+  //       throw Exception('Failed to load materials from API: ${response.statusCode}');
+  //     }
+  //   } catch (e) {
+  //     throw Exception('Error fetching materials: $e');
+  //   }
+  // }
 
-      return cachedMaterial;
-    } else {
-      final materialList = await fetchMaterialFromApi();
-      await cacheMaterialData(materialList);
-      return materialList;
-    }
-  }
-
-  Future<List<IsoQuizMaterialModel>> fetchMaterialFromApi() async {
+    Future<List<IsoQuizMaterialModel>> fetchMaterial() async {
     try {
-      final response = await http.get(Uri.parse(apiUrl + 'api/getMaterial'));
+      final url = Uri.parse(apiUrl + 'api/materialbyIdSubCategory?id_quizSubCategory=${widget.id_quizsubCategory}');
+
+      final response = await http.get(url);
+
       if (response.statusCode == 200) {
         final jsonData = jsonDecode(response.body)['data'] as List<dynamic>;
+
+        // Kembalikan data yang berhasil diambil
         return jsonData.map((e) => IsoQuizMaterialModel.fromJson(e)).toList();
       } else {
-        throw Exception(
-            'Failed to load material from API: ${response.statusCode}');
+        throw Exception('Failed to load materials');
       }
     } catch (e) {
-      throw Exception('Error fetching material: $e');
-    }
-  }
-
-  Future<void> cacheMaterialData(List<IsoQuizMaterialModel> materialList) async {
-    final prefs = await SharedPreferences.getInstance();
-    final jsonData = materialList.map((e) => e.toJson()).toList();
-    prefs.setString('cachedMaterial', jsonEncode(jsonData));
-  }
-
-  Future<void> refreshMaterialDataInBackground() async {
-    try {
-      final materialList = await fetchMaterialFromApi();
-      await cacheMaterialData(materialList);
-    } catch (e) {
-      print("Background refresh failed: $e");
+      print('Error fetching materials: $e');
+      throw Exception('Error fetching materials');
+    } finally {
+      setState(() {
+        _isLoading = false;  // Menandakan proses loading selesai
+      });
     }
   }
 
@@ -93,18 +85,34 @@ class _QuizMaterialPageState extends State<QuizMaterialPage> {
       appBar: AppBar(
         title: Text(widget.isoquizsubcategorymodel.title),
       ),
-     body: Padding(
+      body: Padding(
         padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.08),
         child: FutureBuilder<List<IsoQuizMaterialModel>>(
           future: _materialFuture,
           builder: (context, snapshot) {
+            // Check for loading state
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
-            } else if (snapshot.hasError) {
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CircularProgressIndicator(),
+                    SizedBox(height: 20),
+                    Text('Loading materials... Please wait'),
+                  ],
+                ),
+              );
+            }
+
+            // Check for errors in the fetching process
+            if (snapshot.hasError) {
               return Center(
                 child: Text('Error: ${snapshot.error}'),
               );
-            } else if (snapshot.hasData) {
+            }
+
+            // Check if data is available
+            if (snapshot.hasData) {
               final materials = snapshot.data!;
               if (materials.isEmpty) {
                 return const Center(
@@ -115,13 +123,12 @@ class _QuizMaterialPageState extends State<QuizMaterialPage> {
               // Filter materials based on subcategory ID
               final filteredMaterials = materials
                   .where((material) =>
-                      material.id_quizsubCategory ==
-                      widget.isoquizsubcategorymodel.id_quizsubCategory)
+                      material.id_quizSubCategory == widget.isoquizsubcategorymodel.id_quizsubCategory)
                   .toList();
 
               if (filteredMaterials.isEmpty) {
                 return const Center(
-                  child: Text('Tidak ada material untuk subkategori ini.'),
+                  child: Text('No material found for this subcategory.'),
                 );
               }
 
@@ -142,7 +149,7 @@ class _QuizMaterialPageState extends State<QuizMaterialPage> {
                             context,
                             MaterialPageRoute(
                               builder: (context) => QuizQuestionPage(
-                                 isoquizsubcategorymodel: widget.isoquizsubcategorymodel,
+                                isoquizsubcategorymodel: widget.isoquizsubcategorymodel,
                                 id_quizsubCategory: widget.id_quizsubCategory,
                                 isoquizcategorymodel: widget.isoquizcategorymodel,
                               ),
@@ -150,7 +157,7 @@ class _QuizMaterialPageState extends State<QuizMaterialPage> {
                           );
                         },
                         child: const Text(
-                          'Mulai Test',
+                          'Start Test',
                           style: TextStyle(color: Colors.white),
                         ),
                         style: ElevatedButton.styleFrom(
@@ -164,11 +171,12 @@ class _QuizMaterialPageState extends State<QuizMaterialPage> {
                   ),
                 ],
               );
-            } else {
-              return const Center(
-                child: Text('No data available'),
-              );
             }
+
+            // In case no data is found
+            return const Center(
+              child: Text('No data available'),
+            );
           },
         ),
       ),

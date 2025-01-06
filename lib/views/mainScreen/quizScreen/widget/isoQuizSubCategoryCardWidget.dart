@@ -25,7 +25,8 @@ class IsoQuizSubCategoryCardWidget extends StatelessWidget {
           MaterialPageRoute(
             builder: (context) => QuizMaterialPage(
               isoquizcategorymodel: isoquizcategorymodel,
-              id_quizsubCategory: isoquizsubcategorymodel.id_quizsubCategory, isoquizsubcategorymodel: isoquizsubcategorymodel,
+              id_quizsubCategory: isoquizsubcategorymodel.id_quizsubCategory, 
+              isoquizsubcategorymodel: isoquizsubcategorymodel,
             ),
           ),
         );
