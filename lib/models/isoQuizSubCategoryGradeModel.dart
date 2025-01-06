@@ -1,42 +1,24 @@
 class IsoQuizSubCategoryGradeModel {
-  final int id_quizCategory;  // Menambahkan id_quizCategory
+  final int id_quizCategory;
   final int id_quizSubCategory;
-  final String subCategoryTitle;
-  final int highestScore;
+  final int score_Quiz; // Make sure this field is defined
 
   IsoQuizSubCategoryGradeModel({
-    required this.id_quizCategory,  // Menambahkan parameter ini
-    required this.id_quizSubCategory,  // Menambahkan id_quizSubCategory
-    required this.subCategoryTitle,
-    required this.highestScore,
+    required this.id_quizCategory,
+    required this.id_quizSubCategory,
+    required this.score_Quiz,
   });
 
   factory IsoQuizSubCategoryGradeModel.fromJson(Map<String, dynamic> json) {
     return IsoQuizSubCategoryGradeModel(
-      id_quizCategory: json['id_quizCategory'],  // Menambahkan id_quizCategory
-      id_quizSubCategory: json['id_quizSubCategory'],  // Menambahkan id_quizSubCategory
-      subCategoryTitle: json['subCategoryTitle'],
-      highestScore: _parseToInt(json['highestScore']),
+      id_quizCategory: json["id_quizCategory"] as int,
+      id_quizSubCategory: json["id_quizSubCategory"] as int,
+      score_Quiz: json["score_Quiz"] as int, // Ensure this field is in the response
     );
   }
 
-  Map<String, dynamic> toJson() {
-    return {
-      'id_quizCategory': id_quizCategory,  // Menambahkan id_quizCategory
-      'id_quizSubCategory': id_quizSubCategory,  // Menambahkan id_quizSubCategory
-      'subCategoryTitle': subCategoryTitle,
-      'highestScore': highestScore,
-    };
+  @override
+  String toString() {
+    return 'IsoQuizSubCategoryGradeModel{id_quizCategory: $id_quizCategory, id_quizSubCategory: $id_quizSubCategory, score_Quiz: $score_Quiz}';
   }
-
-  static int _parseToInt(dynamic value) {
-    if (value is String) {
-      return int.tryParse(value) ?? 0;
-    } else if (value is int) {
-      return value;
-    } else {
-      return 0;
-    }
-  }
-
 }

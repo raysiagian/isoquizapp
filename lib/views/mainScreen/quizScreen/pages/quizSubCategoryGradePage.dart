@@ -10,12 +10,11 @@ import 'package:quiz_iso_app/models/isoQuizCategoryModel.dart';
 import 'package:quiz_iso_app/models/isoQuizSubCategoryGradeModel.dart';
 
 class QuizSubCategoryGradePage extends StatefulWidget {
-
   final IsoQuizCategoryModel isoquizcategorymodel;
   final int id_quizCategory;
 
   const QuizSubCategoryGradePage({
- Key? key,
+    Key? key,
     required this.id_quizCategory,
     required this.isoquizcategorymodel,
   }) : super(key: key);
@@ -38,9 +37,6 @@ class _QuizSubCategoryGradePageState extends State<QuizSubCategoryGradePage> {
 
   Future<void> _initializePage() async {
     await _loadTokenAndFetchUser();
-    if (_loggedInUser != null) {
-      await _fetchSubCategoryGrades();
-    }
   }
 
   Future<void> _loadTokenAndFetchUser() async {
@@ -87,6 +83,7 @@ class _QuizSubCategoryGradePageState extends State<QuizSubCategoryGradePage> {
 
     if (response.statusCode == 200) {
       final jsonData = jsonDecode(response.body);
+      print("User data fetched: $jsonData"); // Added debug print
       return User.fromJson(jsonData);
     } else {
       throw Exception('Failed to load user: ${response.reasonPhrase}');
@@ -97,6 +94,7 @@ class _QuizSubCategoryGradePageState extends State<QuizSubCategoryGradePage> {
     final prefs = await SharedPreferences.getInstance();
     final userData = jsonEncode(user.toJson());
     await prefs.setString('cachedUser', userData);
+    print("User data cached: $userData"); // Added debug print
   }
 
   Future<User?> loadUserFromCache() async {
@@ -104,194 +102,63 @@ class _QuizSubCategoryGradePageState extends State<QuizSubCategoryGradePage> {
     final cachedData = prefs.getString('cachedUser');
     if (cachedData != null) {
       final jsonData = jsonDecode(cachedData);
+      print("Loaded cached user: $jsonData"); // Added debug print
       return User.fromJson(jsonData);
     }
     return null;
   }
 
-  Future<void> _fetchSubCategoryGrades() async {
-  final prefs = await SharedPreferences.getInstance();
-  final cachedData = prefs.getString('cachedGrades');
-
-  if (cachedData != null) {
-    final jsonData = jsonDecode(cachedData) as List<dynamic>;
-    final cachedGrades = jsonData
-        .map((e) => IsoQuizSubCategoryGradeModel.fromJson(e))
-        .toList();
-
-    // Filter data berdasarkan id_quizCategory
-    final filteredGrades = cachedGrades
-        .where((subcategory) => subcategory.id_quizCategory == widget.id_quizCategory)
-        .toList();
-
-    setState(() {
-      _subCategoryGrades = filteredGrades;
-      _isLoading = false;
-    });
-
-    refreshGradesInBackground();
-  } else {
+  Future<void> getScore() async {
     try {
-      final gradesList = await fetchGradesFromApi();
-      await cacheGradesData(gradesList);
+      final response = await http.get(
+        Uri.parse(apiUrl + 'api/score/highest'),
+        headers: {
+          'Authorization': 'Bearer $_token',
+          'Content-Type': 'application/json',
+        },
+      );
 
-      final filteredGrades = gradesList
-          .where((subcategory) => subcategory.id_quizCategory == widget.id_quizCategory)
-          .toList();
+      if (response.statusCode == 200) {
+        final jsonData = jsonDecode(response.body);
+        print("Score data fetched: $jsonData"); // Added debug print
 
-      setState(() {
-        _subCategoryGrades = filteredGrades;
-        _isLoading = false;
-      });
-    } catch (e) {
-      setState(() {
-        _isLoading = false;
-      });
-      print("Error fetching grades: $e");
-    }
-  }
-}
-
-
-  // Future<void> _fetchSubCategoryGrades() async {
-  //   final prefs = await SharedPreferences.getInstance();
-  //   final cachedData = prefs.getString('cachedGrades');
-
-  //   if (cachedData != null) {
-  //     final jsonData = jsonDecode(cachedData) as List<dynamic>;
-  //     final cachedGrades = jsonData
-  //         .map((e) => IsoQuizSubCategoryGradeModel.fromJson(e))
-  //         .toList();
-
-  //     setState(() {
-  //       _subCategoryGrades = cachedGrades;
-  //       _isLoading = false;
-  //     });
-
-  //     refreshGradesInBackground();
-  //   } else {
-  //     try {
-  //       final gradesList = await fetchGradesFromApi();
-  //       await cacheGradesData(gradesList);
-
-  //       setState(() {
-  //         _subCategoryGrades = gradesList;
-  //         _isLoading = false;
-  //       });
-  //     } catch (e) {
-  //       setState(() {
-  //         _isLoading = false;
-  //       });
-  //       print("Error fetching grades: $e");
-  //     }
-  //   }
-  // }
-
-  Future<List<IsoQuizSubCategoryGradeModel>> fetchGradesFromApi() async {
-    final response = await http.get(
-      Uri.parse(apiUrl + 'api/score/highest'),
-      headers: {'Authorization': 'Bearer $_token'},
-    );
-
-    if (response.statusCode == 200) {
-      final jsonData = jsonDecode(response.body)['data'] as List<dynamic>;
-      return jsonData
-          .map((e) => IsoQuizSubCategoryGradeModel.fromJson(e))
-          .toList();
-    } else {
-      throw Exception('Failed to load grades from API: ${response.statusCode}');
-    }
-  }
-
-  Future<void> cacheGradesData(List<IsoQuizSubCategoryGradeModel> gradesList) async {
-    final prefs = await SharedPreferences.getInstance();
-    final jsonData = gradesList.map((e) => e.toJson()).toList();
-    prefs.setString('cachedGrades', jsonEncode(jsonData));
-  }
-
-  Future<void> refreshGradesInBackground() async {
-    try {
-      final gradesList = await fetchGradesFromApi();
-      await cacheGradesData(gradesList);
-
-      if (mounted) {
+        // Ubah data JSON menjadi list dari model IsoQuizSubCategoryGradeModel
         setState(() {
-          _subCategoryGrades = gradesList;
+          _subCategoryGrades = List<IsoQuizSubCategoryGradeModel>.from(
+            jsonData['data'].map((item) => IsoQuizSubCategoryGradeModel.fromJson(item))
+          );
+          _isLoading = false;
         });
+      } else {
+        throw Exception('Failed to fetch data');
       }
     } catch (e) {
-      print("Background refresh failed: $e");
+      setState(() {
+        _isLoading = false;
+      });
+      print('Error fetching data: $e');
     }
   }
 
-    @override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
           : _subCategoryGrades.isEmpty
-              ? const Center(child: Text('No data available'))
-              : FutureBuilder<List<IsoQuizSubCategoryGradeModel>>(
-                  future: Future.delayed(
-                    const Duration(milliseconds: 500),
-                        () => _subCategoryGrades
-                        .where((subcategory) =>
-                            subcategory.id_quizCategory == widget.id_quizCategory)
-                        .toList(),
-                  ),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const Center(child: CircularProgressIndicator());
-                    } else if (snapshot.hasError) {
-                      return Center(
-                        child: Text('Error: ${snapshot.error}'),
-                      );
-                    } else if (snapshot.hasData && snapshot.data!.isEmpty) {
-                      return Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Image.asset(
-                              'assets/images/page not found.png',
-                              height: 100,
-                              width: 150,
-                            ),
-                            const SizedBox(height: 40),
-                            const Text(
-                              'Konten tidak tersedia',
-                              style: TextStyle(fontSize: 24, color: Colors.black),
-                              textAlign: TextAlign.center,
-                            ),
-                            const Text(
-                              'Sepertinya belum ada konten saat ini, coba lagi nanti',
-                              style: TextStyle(fontSize: 18, color: Colors.black),
-                              textAlign: TextAlign.center,
-                            ),
-                          ],
-                        ),
-                      );
-                    } else if (snapshot.hasData) {
-                      final filteredSubCategories = snapshot.data!
-                      .where((subcategory) =>
-                          subcategory.id_quizCategory == widget.id_quizCategory)
-                      .toList();
-                      print('Filtered SubCategories: $filteredSubCategories');
-
-                      return ListView.builder(
-                        padding: const EdgeInsets.all(16.0),
-                        itemCount: filteredSubCategories.length,
-                        itemBuilder: (context, index) {
-                          final item = filteredSubCategories[index];
-                          return IsoQuizSubCategoryGradeCardWidget(
-                            subCategoryTitle: item.subCategoryTitle,
-                            grade: item.highestScore,
-                          );
-                        },
-                      );
-                    } else {
-                      return const Center(child: Text('No data available'));
-                    }
+              ? const Center(child: Text('No subcategories available'))
+              : ListView.builder(
+                  padding: const EdgeInsets.all(16),
+                  itemCount: _subCategoryGrades.length,
+                  itemBuilder: (context, index) {
+                    final item = _subCategoryGrades[index];
+                    print("Displaying subcategory grade: ${item.score_Quiz}"); // Added debug print
+                    return IsoQuizSubCategoryGradeCardWidget(
+                      // Kirimkan data ke widget untuk ditampilkan
+                      score: item.score_Quiz,
+                      quizCategoryId: item.id_quizCategory,
+                      subCategoryId: item.id_quizSubCategory,
+                    );
                   },
                 ),
     );

@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:quiz_iso_app/styles/localTextStyle.dart';
 
 class IsoQuizSubCategoryGradeCardWidget extends StatelessWidget {
-  final String subCategoryTitle;
-  final int grade;
+
+  final int score;
+  final int quizCategoryId;
+  final int subCategoryId;
 
   const IsoQuizSubCategoryGradeCardWidget({
     super.key,
-    required this.subCategoryTitle,
-    required this.grade,
+    required this.score,
+    required this.quizCategoryId,
+    required this.subCategoryId,
   });
 
   @override
@@ -22,21 +25,16 @@ class IsoQuizSubCategoryGradeCardWidget extends StatelessWidget {
           color: Colors.white,
           border: Border.all(width: 1, color: Colors.grey),
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              subCategoryTitle,
-              style: LocalTextStyle.textTheme.bodyMedium!.copyWith(
-                color: Colors.black,
-              ),
+              'Category ID: $quizCategoryId, Subcategory ID: $subCategoryId',
+              style: TextStyle(color: Colors.black),
             ),
-            const SizedBox(height: 7),
             Text(
-              grade.toString(),
-              style: LocalTextStyle.textTheme.bodyLarge!.copyWith(
-                color: Colors.green,
-              ),
+              'Score: $score',
+              style: TextStyle(color: Colors.green),
             ),
           ],
         ),
